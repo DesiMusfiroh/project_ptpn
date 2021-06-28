@@ -9,6 +9,11 @@
                 <a> <button type="button" class="btn" style="background-color:#c4eb2a;" data-toggle="modal" data-target=".create_modal" id="create">
                     [ <i class="fa fa-plus"></i> ]  Tambah Sales</button> 
                 </a> 
+                <form action="{{route('sales.import')}}" method="POST" enctype="multipart/form-data">
+                    @csrf 
+                    <input type="file" name="file"/>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
 
             <hr>

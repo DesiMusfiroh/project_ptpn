@@ -33,5 +33,6 @@ Route::get('/admin/penjualan', 'PenjualanController@index_admin');
 Route::post('/admin/sales/store',  [SalesController::class, 'store']);
 Route::patch('/admin/sales/update', [SalesController::class, 'update']);
 Route::post('/admin/sales/delete', [SalesController::class, 'delete']);
+Route::post('/admin/sales/import', [SalesController::class, 'import'])->name('sales.import');
 
 Route::get('/admin/penjualan', [PenjualanController::class, 'indexAdmin']);

@@ -45,12 +45,8 @@ class SalesController extends Controller
 		return redirect()->back()->with('success','Data Sales berhasil di hapus!');
     }
 
-    public function importForm() {
-        return view('sales-import');
-    }
-
     public function import(Request $request) {
         Excel::import(new SalesImport, $request->file);
-        return "Record sales berhasil di import";
+       return redirect()->back()->with('success','Data sales berhasil di masukkan!');
     }
 }
