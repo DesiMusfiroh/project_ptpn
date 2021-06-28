@@ -23,16 +23,12 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/import-form', [PenjualanController::class, 'importForm']);
-Route::post('/import', [PenjualanController::class, 'import'])->name('penjualan.import');
-
 Route::get('/admin/sales', [SalesController::class, 'indexAdmin']);
-Route::get('/admin/outlet', 'OutletController@index_admin');
-Route::get('/admin/penjualan', 'PenjualanController@index_admin');
-
 Route::post('/admin/sales/store',  [SalesController::class, 'store']);
 Route::patch('/admin/sales/update', [SalesController::class, 'update']);
 Route::post('/admin/sales/delete', [SalesController::class, 'delete']);
 Route::post('/admin/sales/import', [SalesController::class, 'import'])->name('sales.import');
 
 Route::get('/admin/penjualan', [PenjualanController::class, 'indexAdmin']);
+Route::post('/admin/penjualan/import', [PenjualanController::class, 'import'])->name('penjualan.import');
+Route::get('/admin/penjualan/export', [PenjualanController::class, 'export']);

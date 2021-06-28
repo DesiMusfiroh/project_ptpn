@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Imports\PenjualanImport;
 use App\Models\Penjualan;
+use App\Imports\PenjualanImport;
+use App\Exports\PenjualanExport;
 use Excel;
 
 class PenjualanController extends Controller
@@ -21,6 +22,10 @@ class PenjualanController extends Controller
 
     public function import(Request $request) {
         Excel::import(new PenjualanImport, $request->file);
-        return "Record berhasil di import";
+        return redirect()->back()->with('success','Data penjualan berhasil di masukkan!');
+    }
+
+    public function export() {
+        return Excel::download(new PenjualanExport, 'data_penjualan.csv');
     }
 }
