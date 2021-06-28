@@ -9,6 +9,12 @@ use Excel;
 
 class PenjualanController extends Controller
 {
+    public function indexAdmin()
+    {
+        $penjualan = Penjualan::all();
+        return view('admin.penjualan',compact('penjualan'));
+    }
+
     public function importForm() {
         return view('import-form');
     }

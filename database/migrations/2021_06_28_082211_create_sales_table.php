@@ -15,7 +15,7 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nama');
             $table->string('wilayah');
             $table->timestamps();
         });
@@ -31,3 +31,6 @@ class CreateSalesTable extends Migration
         Schema::dropIfExists('sales');
     }
 }
+
+
+

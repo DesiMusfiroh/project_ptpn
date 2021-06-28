@@ -30,7 +30,7 @@
             <div class="container">
 
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <span><div style="font-size:20px; font-family:segoe ui black; color:#c4eb2a; font-weight:bold;"> <i class="fa fa-home"></i> Toko Anabee </div> </span>
+                    <span><div style="font-size:20px; font-family:segoe ui black; color:#c4eb2a; font-weight:bold;"> <i class="fa fa-home"></i> Piutang Penjualan Teh Kayu Aro </div> </span>
                 </a>
                 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -92,17 +92,14 @@
                     <a class="nav-link {{(request()->is('home')) ? 'active' : ''}}" style="font-weight:bold; " href="/home">Home</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link {{(request()->is('owner/produk')) ? 'active' : ''}}" style="font-weight:bold;" href="/owner/produk">Data Produk dan Stok</a>
+                    <a class="nav-link {{(request()->is('admin/sales')) ? 'active' : ''}}" style="font-weight:bold;" href="/admin/sales">Data Sales</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link {{(request()->is('owner/produk_terjual')) ? 'active' : ''}}" style="font-weight:bold;" href="/owner/produk_terjual">Produk Terjual</a>
+                    <a class="nav-link {{(request()->is('admin/outlet')) ? 'active' : ''}}" style="font-weight:bold;" href="/admin/outlet">Data Outlet</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{(request()->is('owner/data_transaksi')) ? 'active' : ''}}" style="font-weight:bold;" href="/owner/data_transaksi">Data Transaksi</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{(request()->is('owner/pendapatan')) ? 'active' : ''}}"  style="font-weight:bold;" href="/owner/pendapatan">Pendapatan</a>
-                </li>          
+                    <a class="nav-link {{(request()->is('admin/penjualan')) ? 'active' : ''}}" style="font-weight:bold;" href="/admin/penjualan">Data Penjualan</a>
+                </li>      
             </ul>
         </div>
         <!-- Penutup Nav Menu -->

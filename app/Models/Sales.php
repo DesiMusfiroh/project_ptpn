@@ -1,12 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Sales;
 
 class Sales extends Model
 {
+    use HasFactory;
     protected $table ='sales';
     protected $fillable = ['id','nama','wilayah'];
 }
