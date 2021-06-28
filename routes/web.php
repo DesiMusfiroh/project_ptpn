@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PenjualanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +17,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('export', 'MyController@export')->name('export');
+Route::get('importExportView', 'MyController@importExportView');
+Route::post('import', 'MyController@import')->name('import');
+
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/import-form', [PenjualanController::class, 'importForm']);
+Route::post('/import', [PenjualanController::class, 'import'])->name('penjualan.import');
+// Route::post('import', 'PenjualanController@import')->name('penjualan.import');
