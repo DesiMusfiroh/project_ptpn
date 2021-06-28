@@ -33,3 +33,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/import-form', [PenjualanController::class, 'importForm']);
 Route::post('/import', [PenjualanController::class, 'import'])->name('penjualan.import');
 // Route::post('import', 'PenjualanController@import')->name('penjualan.import');
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

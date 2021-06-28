@@ -9,5 +9,4 @@ class Sales extends Model
 {
     protected $table ='sales';
     protected $fillable = ['id','nama','wilayah'];
-
 }
