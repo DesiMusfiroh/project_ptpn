@@ -10,9 +10,20 @@ class SalesImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-        return new Sales([
-            'nama'     => $row['nama'],
-            'wilayah'  => $row['wilayah'],
-        ]);
+        $check_sales = Sales::where('nama', $row['nama'])->first();
+        
+        if (!$check_sales) {
+            $posts = Sales::create([
+                'nama'     => $row['nama'],
+                'wilayah'  => $row['wilayah'],
+            ]);  
+        } 
+        elseif ($check_sales) {
+            $update_sales = [
+                'nama'     => $row['nama'],
+                'wilayah'  => $row['wilayah'],
+            ];
+            $posts = Sales::where('nama', $row['nama'])->update($update_sales);
+        }
     }
 }
