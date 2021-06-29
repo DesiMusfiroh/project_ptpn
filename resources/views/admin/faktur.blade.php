@@ -43,9 +43,9 @@
                                 <th scope="col" class="text-center">Nama Sales</th>
                                 <th scope="col" class="text-center">Wilayah</th>
                                 <th scope="col" class="text-center">Nama Outlet</th>
-                                <th scope="col" class="text-center">Penjualan</th>
-                                <th scope="col" class="text-center">Cash in</th>
-                                <th scope="col" class="text-center">Piutang</th>
+                                <th scope="col" class="text-center" width="120px">Penjualan</th>
+                                <th scope="col" class="text-center" width="120px">Cash in</th>
+                                <th scope="col" class="text-center" width="120px">Piutang</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,9 +58,9 @@
                                     <td class="text-center">{{ $item->sales->nama }}</td> 
                                     <td class="text-center">{{ $item->wilayah->nama }}</td> 
                                     <td class="text-center">{{ $item->nama_outlet }}</td>
-                                    <td class="text-center">{{ $item->penjualan }}</td>
-                                    <td class="text-center">{{ $item->cash_in }}</td>
-                                    <td class="text-center">{{ $item->piutang}}</td>          
+                                    <td class="text-center">Rp. {{ number_format($item->penjualan) }}</td>
+                                    <td class="text-center">Rp. {{ number_format($item->cash_in) }}</td>
+                                    <td class="text-center">Rp. {{ number_format($item->piutang) }}</td>          
                                 </tr>
                                 @endforeach 
                             </tbody>

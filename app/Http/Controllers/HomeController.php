@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Penjualan;
 use App\Models\Sales;
-use App\Models\Outlet;
+use App\Models\Faktur;
+use App\Models\ViewRekapPerSales;
+use App\Models\ViewRekapPerWilayah;
 
 class HomeController extends Controller
 {
@@ -26,15 +28,40 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $penjualan = Penjualan::all();
-        // $penjualan_per_sales = Penjualan::sum('penjualan')->groupByRaw('nama_sales')->get();
-        // dd($penjualan_per_sales);
-        return view('admin.dashboard');
+        $total_penjualan = Faktur::sum('penjualan');
+        $total_cash_in = Faktur::sum('cash_in');
+        $total_piutang = Faktur::sum('piutang');
+
+        $rekap_per_sales = ViewRekapPerSales::all();
+        $array_sales[] = ['Sales','Penjualan','Cash In', 'Piutang'];
+        foreach($rekap_per_sales as $key => $value) {
+            $array_sales[++$key] = [$value->sales->nama, 
+            floatval($value->penjualan), 
+            floatval($value->cash_in),
+            floatval($value->piutang)];
+        }
+        
+        $rekap_per_wilayah = ViewRekapPerWilayah::all();
+        $array_wilayah[] = ['Wilayah','Penjualan','Cash In', 'Piutang'];
+        foreach($rekap_per_wilayah as $key => $value) {
+            $array_wilayah[++$key] = [$value->wilayah->nama, 
+            floatval($value->penjualan), 
+            floatval($value->cash_in),
+            floatval($value->piutang)];
+        }
+
+        return view('admin.dashboard', compact('total_penjualan','total_cash_in','total_piutang','rekap_per_sales'))->with('tabel_sales',json_encode($array_sales));
 
         // total penjualan
         // total piutang 
         // total sales
         // total penjualan per bulan
-        
+        // $faktur_per_sales  = $faktur->groupBy('sales_id')->map(function ($row) {
+        //     return $row->sum('penjualan');
+        // });
+        // $faktur_per_wilayah  = $faktur->groupBy('wilayah_id')->map(function ($row) {
+        //     return $row->sum('penjualan');
+        // });
+        // dd($faktur_per_wilayah);
     }
 }

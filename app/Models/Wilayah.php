@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Sales;
 use App\Models\Faktur;
+use App\Models\ViewRekapPerWilayah;
 
 class Wilayah extends Model
 {
@@ -20,4 +21,9 @@ class Wilayah extends Model
     public function faktur() {
     	return $this->hasOne(Faktur::class,'wilayah_id');
     }
+
+    public function rekap_per_wilayah() {
+    	return $this->hasOne(ViewRekapPerWilayah::class,'wilayah_id');
+    }
+
 }
