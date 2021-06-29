@@ -50,12 +50,8 @@ class HomeController extends Controller
             floatval($value->piutang)];
         }
 
-        return view('admin.dashboard', compact('total_penjualan','total_cash_in','total_piutang','rekap_per_sales'))->with('tabel_sales',json_encode($array_sales));
+        return view('admin.dashboard', compact('total_penjualan','total_cash_in','total_piutang','rekap_per_sales','rekap_per_wilayah'))->with('tabel_sales',json_encode($array_sales));
 
-        // total penjualan
-        // total piutang 
-        // total sales
-        // total penjualan per bulan
         // $faktur_per_sales  = $faktur->groupBy('sales_id')->map(function ($row) {
         //     return $row->sum('penjualan');
         // });

@@ -53,8 +53,7 @@
               </div>
             </div>
           </div>
-        </div>
-        
+        </div>    
       </div>
 
       <div class="row">
@@ -64,30 +63,31 @@
               <h4>Rekap Data Per Sales</h4>
             </div>
             <div class="card-body">
-            <div class="table-inside">
-                <table class="table table-striped table-md">
-                    <thead>
-                        <tr>
-                        <th scope="col" class="text-center">No</th>
-                        <th scope="col" class="text-center">Nama Sales</th>
-                        <th scope="col" class="text-center">Penjualan</th>
-                        <th scope="col" class="text-center">Cash In</th>
-                        <th scope="col" class="text-center">Piutang</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $i=0; ?>                                                 
-                        @foreach ($rekap_per_sales as $item) 
-                        <tr>
-                            <td scope="row" class="text-center"><?php  $i++;  echo $i; ?></td>
-                            <td scope="row">{{ $item->sales->nama }}</td>
-                            <td scope="row" >Rp. {{ number_format($item->penjualan) }}</td>
-                            <td scope="row" >Rp. {{ number_format($item->cash_in) }}</td>
-                            <td scope="row" >Rp {{ number_format($item->piutang) }}</td>
-                        </tr>
-                        @endforeach 
-                    </tbody>
-                </table>
+              <div class="table-inside">
+                  <table class="table table-striped table-md">
+                      <thead>
+                          <tr>
+                          <th scope="col" class="text-center">No</th>
+                          <th scope="col" class="text-center">Nama Sales</th>
+                          <th scope="col" class="text-center">Penjualan</th>
+                          <th scope="col" class="text-center">Cash In</th>
+                          <th scope="col" class="text-center">Piutang</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php $i=0; ?>                                                 
+                          @foreach ($rekap_per_sales as $item) 
+                          <tr>
+                              <td scope="row" class="text-center"><?php  $i++;  echo $i; ?></td>
+                              <td scope="row">{{ $item->sales->nama }}</td>
+                              <td scope="row" >Rp. {{ number_format($item->penjualan) }}</td>
+                              <td scope="row" >Rp. {{ number_format($item->cash_in) }}</td>
+                              <td scope="row" >Rp {{ number_format($item->piutang) }}</td>
+                          </tr>
+                          @endforeach 
+                      </tbody>
+                  </table>
+              </div>
             </div>
           </div>
         </div>
@@ -104,7 +104,44 @@
             </div>    
         </div> -->
       </div>
-    
+  
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header">
+              <h4>Rekap Data Per Wilayah</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-inside">
+                  <table class="table table-striped table-md">
+                      <thead>
+                          <tr>
+                          <th scope="col" class="text-center">No</th>
+                          <th scope="col" class="text-center">Wilayah</th>
+                          <th scope="col" class="text-center">Penjualan</th>
+                          <th scope="col" class="text-center">Cash In</th>
+                          <th scope="col" class="text-center">Piutang</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php $i=0; ?>                                                 
+                          @foreach ($rekap_per_wilayah as $item) 
+                          <tr>
+                              <td scope="row" class="text-center"><?php  $i++;  echo $i; ?></td>
+                              <td scope="row">{{ $item->wilayah->nama }}</td>
+                              <td scope="row" >Rp. {{ number_format($item->penjualan) }}</td>
+                              <td scope="row" >Rp. {{ number_format($item->cash_in) }}</td>
+                              <td scope="row" >Rp {{ number_format($item->piutang) }}</td>
+                          </tr>
+                          @endforeach 
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
     </div>
 
 </section>
