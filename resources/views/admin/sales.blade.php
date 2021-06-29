@@ -1,97 +1,95 @@
 <?php use App\Sales; ?>
-@extends('layouts.layout_admin')
+@extends('layouts.master')
 
 @section('content')
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<section class="section">
+    <div class="section-header">
+        <h1>Data Sales</h1>
+    </div>
 
-            <div class="text-right" style="font-size:20px; font-family:segoe ui black; font-weight:bold;">
-                <a> <button type="button" class="btn" style="background-color:#c4eb2a;" data-toggle="modal" data-target=".create_modal" id="create">
-                    [ <i class="fa fa-plus"></i> ]  Tambah Sales</button> 
-                </a> 
-                <form action="{{route('sales.import')}}" method="POST" enctype="multipart/form-data">
-                    @csrf 
-                    <input type="file" name="file"/>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+    <div class="section-body">
+
+        <div class="row">
+            <div class="col-12 col-md-8 col-lg-8">
+                <div class="card">
+                    <div class="card-header mb-0">
+                        <h4>List Sales</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-inside">
+                            <table class="table table-striped table-md">
+                                <thead>
+                                    <tr>
+                                    <th scope="col" class="text-center">No</th>
+                                    <th scope="col" class="text-center">Nama</th>
+                                    <th scope="col" class="text-center">Wilayah</th>
+                                    <th scope="col" class="text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i=0; ?>                                                 
+                                    @foreach ($sales as $item) 
+                                    <tr>
+                                        <td scope="row" class="text-center"><?php  $i++;  echo $i; ?></td>
+                                        <td scope="row">{{ $item->nama }}</td>
+                                        <td scope="row" >{{ $item->wilayah }}</td>
+                                                                
+                                        <td scope="row" class="text-center">
+                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".update_modal"
+                                                id="update"                                   
+                                                data-id="{{ $item->id }}"    
+                                                data-nama_update="{{ $item->nama }}"     
+                                                data-wilayah_update="{{ $item->wilayah }}">  
+                                                <i class="fa fa-edit"></i>             
+                                            </button>
+                                        
+                                            <button class="btn btn-danger" data-toggle="modal" data-target=".delete_modal"
+                                                id="delete"
+                                                data-id_delete="{{ $item->id }}"
+                                                data-nama_delete="{{ $item->nama }}">
+                                                <i class="fa fa-trash"></i>                                       
+                                            </button>
+                                        </td>                          
+                                    </tr>
+                                    @endforeach 
+                                </tbody>
+                            </table>
+                        </div>
+                  </div>
+                </div>
             </div>
 
-            <hr>
-
-            <div class="card">
-
-                <div class="card-header bg-dark text-center " style="font-size:20px; color:#c4eb2a; font-family:segoe ui black; font-weight:bold;"> 
-                   <span>Data Sales</span>
+            <div class="col-12 col-md-4 col-lg-4">
+                <div class="card">
+                    <div class="card-header mb-0">
+                        <h4>Tambah Data Sales</h4>
+                    </div>
+                    <div class="card-body">
+                        <a> <button type="button" class="btn" style="background-color:#c4eb2a;" data-toggle="modal" data-target=".create_modal" id="create">
+                            Tambah Sales</button> 
+                        </a> 
+                    </div>
                 </div>
 
-                <div class="card-body">
-           
-                    @if ($message = Session::get('success'))               
-                        <div class="alert alert-success alert-block">
-                            <button type="button" class="close" data-dismiss="alert">×</button>
-                            <strong>{{ $message }}</strong>
-                        </div>
-                    @endif
-                        
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif  
-
-                    <table class="table table-striped table-bordered table-sm">
-                        <thead class="thead-light text-center">
-                            <tr>
-                                <th scope="col" style="width:50px">No</th>
-                                <th scope="col" style="width:150px">Nama Sales</th>
-                                <th scope="col" style="width:300px">Wilayah</th>
-                                <th scope="col" style="width:140px"></th>
-                              
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i=0; ?>                                                 
-                            @foreach ($sales as $item) 
-                            <tr>
-                                <td scope="row"><?php  $i++;  echo $i; ?></td>
-                                <td class="text-center">{{ $item->nama }}</td>
-                                <td>{{ $item->wilayah }}</td>
-                                                          
-                                <td class="text-center">
-                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".update_modal"
-                                        id="update"                                   
-                                        data-id="{{ $item->id }}"    
-                                        data-nama_update="{{ $item->nama }}"     
-                                        data-wilayah_update="{{ $item->wilayah }}">  
-                                        <i class="fa fa-edit"></i>             
-                                    </button>
-                                
-                                    <button class="btn btn-danger" data-toggle="modal" data-target=".delete_modal"
-                                        id="delete"
-                                        data-id_delete="{{ $item->id }}"
-                                        data-nama_delete="{{ $item->nama }}">
-                                        <i class="fa fa-trash"></i>                                       
-                                    </button>
-                                </td>                          
-                            </tr>
-                            @endforeach 
-                        </tbody>
-                    </table>
-
-                    <div class="row ">
-                        <div class="col-12 text-center ">
-                          
-                        </div>
+                <div class="card">
+                    <div class="card-header mb-0">
+                        <h4>Import Data Sales dari Excel (.csv)</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{route('sales.import')}}" method="POST" enctype="multipart/form-data">
+                            @csrf 
+                            <input type="file" name="file" class="form-control mb-4"/>
+                            <button type="submit" class="btn btn-primary">Import Data </button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
+</section>
+
+    
 
 
 

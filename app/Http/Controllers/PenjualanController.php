@@ -17,12 +17,12 @@ class PenjualanController extends Controller
     }
 
     public function importForm() {
-        return view('import-form');
+        return view('admin.import');
     }
 
     public function import(Request $request) {
         Excel::import(new PenjualanImport, $request->file);
-        return redirect()->back()->with('success','Data penjualan berhasil di masukkan!');
+        return redirect('/admin/penjualan')->with('success','Data penjualan berhasil di masukkan!');
     }
 
     public function export() {

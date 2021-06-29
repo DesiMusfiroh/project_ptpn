@@ -30,5 +30,10 @@ Route::post('/admin/sales/delete', [SalesController::class, 'delete']);
 Route::post('/admin/sales/import', [SalesController::class, 'import'])->name('sales.import');
 
 Route::get('/admin/penjualan', [PenjualanController::class, 'indexAdmin']);
-Route::post('/admin/penjualan/import', [PenjualanController::class, 'import'])->name('penjualan.import');
+Route::get('/admin/penjualan_import', [PenjualanController::class, 'importForm']);
+Route::post('/admin/penjualan/import/store', [PenjualanController::class, 'import'])->name('penjualan.import');
 Route::get('/admin/penjualan/export', [PenjualanController::class, 'export']);
+
+Route::get('/template', function() {
+    return view('layouts.master');
+});
