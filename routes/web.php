@@ -4,36 +4,38 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\SalesController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\WilayahController;
 
 Route::get('/', function () {
     return view('welcome');
 });
-
 Auth::routes();
-
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/admin/sales', [SalesController::class, 'indexAdmin']);
-Route::post('/admin/sales/store',  [SalesController::class, 'store']);
-Route::patch('/admin/sales/update', [SalesController::class, 'update']);
-Route::post('/admin/sales/delete', [SalesController::class, 'delete']);
-Route::post('/admin/sales/import', [SalesController::class, 'import'])->name('sales.import');
-
-Route::get('/admin/penjualan', [PenjualanController::class, 'indexAdmin']);
-Route::get('/admin/penjualan_import', [PenjualanController::class, 'importForm']);
-Route::post('/admin/penjualan/import/store', [PenjualanController::class, 'import'])->name('penjualan.import');
-Route::get('/admin/penjualan/export', [PenjualanController::class, 'export']);
-
-Route::get('/template', function() {
-    return view('layouts.master');
+Route::group(['middleware' => ['auth']],function(){
+    Route::group(['prefix' => 'admin'],function(){
+        Route::group(['prefix' => 'sales'],function(){
+            Route::get('/', [SalesController::class, 'indexAdmin'])->name('sales');
+            Route::post('/store',  [SalesController::class, 'store'])->name('sales.store');
+            Route::patch('/update', [SalesController::class, 'update'])->name('sales.update');
+            Route::post('/delete', [SalesController::class, 'delete'])->name('sales.delete');
+            Route::post('/import', [SalesController::class, 'import'])->name('sales.import');
+        });
+    
+        Route::group(['prefix' => 'wilayah'],function(){
+            Route::get('/', [WilayahController::class, 'indexAdmin'])->name('wilayah');
+            Route::post('/store',  [WilayahController::class, 'store'])->name('wilayah.store');
+            Route::patch('/update', [WilayahController::class, 'update'])->name('wilayah.update');
+            Route::post('/delete', [WilayahController::class, 'delete'])->name('wilayah.delete');
+            Route::post('/import', [WilayahController::class, 'import'])->name('wilayah.import');
+        });
+        
+        Route::group(['prefix' => 'penjualan'],function(){
+            Route::get('/', [PenjualanController::class, 'indexAdmin']);
+            Route::post('/import/store', [PenjualanController::class, 'import'])->name('penjualan.import');
+            Route::get('/export', [PenjualanController::class, 'export']);
+        });
+        Route::get('/penjualan_import', [PenjualanController::class, 'importForm']);
+        
+    });
 });
