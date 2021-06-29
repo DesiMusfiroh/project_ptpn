@@ -37,13 +37,5 @@ Route::group(['middleware' => ['auth']],function(){
             Route::get('/export', [FakturController::class, 'export']);
         });
         Route::get('/faktur_import', [FakturController::class, 'importForm']);
-
-        Route::group(['prefix' => 'penjualan'],function(){
-            Route::get('/', [PenjualanController::class, 'indexAdmin']);
-            Route::post('/import/store', [PenjualanController::class, 'import'])->name('penjualan.import');
-            Route::get('/export', [PenjualanController::class, 'export']);
-        });
-        Route::get('/penjualan_import', [PenjualanController::class, 'importForm']);
-        
     });
 });
