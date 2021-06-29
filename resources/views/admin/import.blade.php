@@ -14,7 +14,7 @@
                         <h4>Import Data </h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{route('penjualan.import')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('faktur.import')}}" method="POST" enctype="multipart/form-data">
                             @csrf 
                             <div class="form-group">
                                 <label for="file">Choose CSV</label>

@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\WilayahController;
+use App\Http\Controllers\FakturController;
+use App\Http\Controllers\PenjualanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,6 +31,13 @@ Route::group(['middleware' => ['auth']],function(){
             Route::post('/import', [WilayahController::class, 'import'])->name('wilayah.import');
         });
         
+        Route::group(['prefix' => 'faktur'],function(){
+            Route::get('/', [FakturController::class, 'indexAdmin']);
+            Route::post('/import/store', [FakturController::class, 'import'])->name('faktur.import');
+            Route::get('/export', [FakturController::class, 'export']);
+        });
+        Route::get('/faktur_import', [FakturController::class, 'importForm']);
+
         Route::group(['prefix' => 'penjualan'],function(){
             Route::get('/', [PenjualanController::class, 'indexAdmin']);
             Route::post('/import/store', [PenjualanController::class, 'import'])->name('penjualan.import');
