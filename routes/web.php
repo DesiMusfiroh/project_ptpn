@@ -6,10 +6,13 @@ use App\Http\Controllers\SalesController;
 use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\FakturController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\WelcomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', [WelcomeController::class, 'index']);
+
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
