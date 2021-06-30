@@ -1,0 +1,7 @@
+no_faktur,tanggal_faktur,kode_sales,kode_wilayah,nama_sales,wilayah,nama_outlet,penjualan,cash_in,piutang
+fakturno1,23/12/2021,S001,W001,Risky,Jambi,warung bu suci,100000,45000,55000
+fakturno2,22/12/2021,S002,W002,Desi Musfiroh,Tanjabar,kedai xa,250000,70000,200000
+fakturno3,29/06/2021,S002,W001,Anisa,Tanjabar,warung pak slamet,110000,0,110000
+fakturno4,29/06/2021,S001,W001,Desi Musfiroh,Jambi,warung rumahan,200000,120000,80000
+fakturno5,29/06/2021,S003,W002,Risky,Jambi,toko kue sinta,350000,300000,50000
+fakturno6,29/06/2021,S004,W003,Cici,Sarolangun,toko siantar top,380000,300000,70000

@@ -12,7 +12,7 @@ class Wilayah extends Model
 {
     use HasFactory;
     protected $table ='wilayah';
-    protected $fillable = ['nama','keterangan'];
+    protected $fillable = ['kode','nama','keterangan'];
 
     public function sales() {
     	return $this->hasOne(Sales::class,'wilayah_id');

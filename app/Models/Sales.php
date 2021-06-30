@@ -12,7 +12,7 @@ class Sales extends Model
 {
     use HasFactory;
     protected $table ='sales';
-    protected $fillable = ['nama','wilayah'];
+    protected $fillable = ['kode','nama','wilayah'];
  
     public function wilayah() {
         return $this->belongsTo(Wilayah::class);

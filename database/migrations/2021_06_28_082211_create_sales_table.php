@@ -15,6 +15,7 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
+            $table->string('kode');
             $table->string('nama');
             $table->string('wilayah')->nullable();
             $table->timestamps();

@@ -10,20 +10,22 @@ class WilayahImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-        $check_wilayah = Wilayah::where('nama', $row['nama'])->first();
+        $check_wilayah = Wilayah::where('kode', $row['kode'])->first();
         
         if (!$check_wilayah) {
             $posts = Wilayah::create([
+                'kode'     => $row['kode'],
                 'nama'     => $row['nama'],
                 'keterangan'  => $row['keterangan'],
             ]);  
         } 
         elseif ($check_wilayah) {
             $update_wilayah = [
+                'kode'     => $row['kode'],
                 'nama'     => $row['nama'],
                 'keterangan'  => $row['keterangan'],
             ];
-            $posts = Wilayah::where('nama', $row['nama'])->update($update_wilayah);
+            $posts = Wilayah::where('kode', $row['kode'])->update($update_wilayah);
         }
     }
 }

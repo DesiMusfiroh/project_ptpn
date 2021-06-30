@@ -18,10 +18,12 @@ class WilayahController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
+            'kode' => 'required',
             'nama' => 'required',
         ]);
 
         Wilayah::create([
+            'kode' => $request->kode,
             'nama' => $request->nama,
             'keterangan' => $request->keterangan,
         ]);

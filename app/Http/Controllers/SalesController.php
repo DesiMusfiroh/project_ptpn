@@ -18,15 +18,17 @@ class SalesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
+            'kode' => 'required',
             'nama' => 'required',
             'wilayah' => 'required',
         ]);
 
         Sales::create([
+            'kode' => $request->kode,
             'nama' => $request->nama,
             'wilayah' => $request->wilayah,
         ]);
-        
+
         return redirect('/admin/sales')->with('success', 'Data sales berhasil ditambahkan!');
     }
 

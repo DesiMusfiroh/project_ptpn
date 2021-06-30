@@ -12,9 +12,24 @@ class FakturImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-        $sales = Sales::where('nama', $row['nama_sales'])->first();
-        $wilayah = Wilayah::where('nama', $row['wilayah'])->first();
-       
+        if (Sales::where('kode', $row['kode_sales'])->doesntExist()) {
+            Sales::create([
+                'kode' => $row['kode_sales'],
+                'nama' => $row['nama_sales'],
+                'wilayah' => " ",
+            ]);    
+        }
+        if (Wilayah::where('kode', $row['kode_wilayah'])->doesntExist()) {
+            Wilayah::create([
+                'kode' => $row['kode_wilayah'],
+                'nama' => $row['wilayah'],
+                'keterangan' => " ",
+            ]);
+        }
+
+        $sales = Sales::where('kode', $row['kode_sales'])->first();
+        $wilayah = Wilayah::where('kode', $row['kode_wilayah'])->first();
+
         $check_faktur = Faktur::where('no_faktur', $row['no_faktur'])->first();
         
         if (!$check_faktur) {
