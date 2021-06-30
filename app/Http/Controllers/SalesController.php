@@ -27,8 +27,9 @@ class SalesController extends Controller
             'wilayah' => $request->wilayah,
         ]);
         
-        return redirect('/admin/sales')
-        ->with('success','Data Sales baru berhasil di tambahkan!');
+        alert()->success('You have been logged out.', 'Good bye!');
+
+        return redirect('/admin/sales')->with('success', 'Data sales berhasil ditambahkan!');
     }
 
     public function update(Request $request)

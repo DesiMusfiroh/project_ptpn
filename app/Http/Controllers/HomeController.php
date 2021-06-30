@@ -8,6 +8,7 @@ use App\Models\Sales;
 use App\Models\Faktur;
 use App\Models\ViewRekapPerSales;
 use App\Models\ViewRekapPerWilayah;
+use SweetAlert;
 
 class HomeController extends Controller
 {
@@ -49,7 +50,6 @@ class HomeController extends Controller
             floatval($value->cash_in),
             floatval($value->piutang)];
         }
-
         return view('admin.dashboard', compact('total_penjualan','total_cash_in','total_piutang','rekap_per_sales','rekap_per_wilayah'))->with('tabel_sales',json_encode($array_sales));
 
         // $faktur_per_sales  = $faktur->groupBy('sales_id')->map(function ($row) {
