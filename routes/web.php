@@ -7,6 +7,7 @@ use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\FakturController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\ChangePasswordController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -14,9 +15,9 @@ use App\Http\Controllers\WelcomeController;
 Route::get('/', [WelcomeController::class, 'index']);
 
 Auth::routes();
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']],function(){
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::group(['prefix' => 'admin'],function(){
         Route::group(['prefix' => 'sales'],function(){
             Route::get('/', [SalesController::class, 'indexAdmin'])->name('sales');
@@ -41,4 +42,7 @@ Route::group(['middleware' => ['auth']],function(){
         });
         Route::get('/faktur_import', [FakturController::class, 'importForm']);
     });
+
+    Route::get('change-password', [ChangePasswordController::class, 'index']);
+    Route::post('change-password', [ChangePasswordController::class, 'store'])->name('change.password');
 });

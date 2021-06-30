@@ -57,9 +57,9 @@
                                             <i class="far fa-user"></i> Login
                                         </a>
                                         @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="dropdown-item has-icon">
+                                        <!-- <a href="{{ route('register') }}" class="dropdown-item has-icon">
                                             <i class="far fa-user"></i> Register
-                                        </a>
+                                        </a> -->
                                         @endif
                                     @endauth   
                             @endif

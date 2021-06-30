@@ -16,7 +16,7 @@
               <a href="#" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profil
               </a>
-              <a href="#" class="dropdown-item has-icon">
+              <a href="/change-password" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> Pengaturan
               </a>
               <div class="dropdown-divider"></div>
