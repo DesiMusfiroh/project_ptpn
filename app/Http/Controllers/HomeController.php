@@ -8,25 +8,15 @@ use App\Models\Sales;
 use App\Models\Faktur;
 use App\Models\ViewRekapPerSales;
 use App\Models\ViewRekapPerWilayah;
-use SweetAlert;
+use App\Models\ViewRekapPerBulan;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         $total_penjualan = Faktur::sum('penjualan');
@@ -50,8 +40,18 @@ class HomeController extends Controller
             floatval($value->cash_in),
             floatval($value->piutang)];
         }
-        return view('admin.dashboard', compact('total_penjualan','total_cash_in','total_piutang','rekap_per_sales','rekap_per_wilayah'))->with('tabel_sales',json_encode($array_sales));
 
+        $rekap_per_bulan = ViewRekapPerBulan::all();
+        $array_bulan[] = ['Bulan','Penjualan','Cash In', 'Piutang'];
+        foreach($rekap_per_bulan as $key => $value) {
+            $array_bulan[++$key] = [$value->bulan, 
+            floatval($value->penjualan), 
+            floatval($value->cash_in),
+            floatval($value->piutang)];
+        }
+        return view('admin.dashboard', compact('total_penjualan','total_cash_in','total_piutang','rekap_per_sales','rekap_per_wilayah','rekap_per_bulan'))
+        ->with('tabel_sales', json_encode($array_sales))
+        ->with('tabel_wilayah',json_encode($array_wilayah));
         // $faktur_per_sales  = $faktur->groupBy('sales_id')->map(function ($row) {
         //     return $row->sum('penjualan');
         // });
