@@ -202,7 +202,7 @@
 <script type="text/javascript">
 
       var analytics_sales = <?php echo $tabel_sales; ?>;
-      google.charts.load('current', {'packages':['bar']});
+      google.charts.load('current', {'packages':['line']});
       google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
@@ -213,8 +213,8 @@
             title: ' ',      
           }
         };
-      var chart = new google.charts.Bar(document.getElementById('chart_rekap_per_sales'));
-      chart.draw(data, google.charts.Bar.convertOptions(options));
+      var chart = new google.charts.Line(document.getElementById('chart_rekap_per_sales'));
+      chart.draw(data, google.charts.Line.convertOptions(options));
 
     }
 </script>
@@ -222,7 +222,7 @@
 <script type="text/javascript">
 
     var analytics_wilayah = <?php echo $tabel_wilayah; ?>;
-      google.charts.load('current', {'packages':['bar']});
+      google.charts.load('current', {'packages':['line']});
       google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
@@ -233,8 +233,8 @@
             title: '',      
           }
         };
-      var chart = new google.charts.Bar(document.getElementById('chart_rekap_per_wilayah'));
-      chart.draw(data, google.charts.Bar.convertOptions(options));
+      var chart = new google.charts.Line(document.getElementById('chart_rekap_per_wilayah'));
+      chart.draw(data, google.charts.Line.convertOptions(options));
     }
 </script>
 @endsection

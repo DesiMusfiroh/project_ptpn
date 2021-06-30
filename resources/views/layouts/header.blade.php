@@ -13,9 +13,9 @@
             <div class="d-sm-none d-lg-inline-block">Hai, {{ Auth::user()->name }}</div></a>
             <div class="dropdown-menu dropdown-menu-right">
               <div class="dropdown-title">Admin SBUPTK </div>
-              <a href="#" class="dropdown-item has-icon">
+              <!-- <a href="#" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profil
-              </a>
+              </a> -->
               <a href="/change-password" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> Pengaturan
               </a>
