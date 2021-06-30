@@ -68,6 +68,11 @@
                 <button type="submit"class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4">
                     {{ __('Login') }}
                 </button>
+                <a href="{{ url('/') }}" > 
+                  <button type="button" class="btn btn-primary btn-lg btn-icon icon-right mt-3" tabindex="4">
+                    Kembali ke Halaman Utama
+                  </button> 
+                </a>
               </div>
 
               <!-- <div class="mt-5 text-center">
@@ -82,7 +87,6 @@
           </div>
         </div>
         <div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" data-background="../assets/img/unsplash/login-bg.jpg">
-          
           <div class="absolute-bottom-left index-2">
             <div class="text-light p-5 pb-2">
               <div class="mb-5 pb-3">
@@ -91,11 +95,7 @@
               </div>
             </div>
           </div>
-          <div class="absolute-top mt-4 ml-2 index-2">
-            <a href="{{ url('/') }}"> <button type="button" class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4">
-                Kembali ke Halaman Utama
-            </button> </a>
-          </div>
+         
         </div>
       </div>
     </section>
