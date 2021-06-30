@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Penjualan;
 use App\Models\Sales;
 use App\Models\Faktur;
 use App\Models\ViewRekapPerSales;

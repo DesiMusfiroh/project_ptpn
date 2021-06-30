@@ -27,8 +27,6 @@ class SalesController extends Controller
             'wilayah' => $request->wilayah,
         ]);
         
-        alert()->success('You have been logged out.', 'Good bye!');
-
         return redirect('/admin/sales')->with('success', 'Data sales berhasil ditambahkan!');
     }
 
@@ -48,6 +46,6 @@ class SalesController extends Controller
 
     public function import(Request $request) {
         Excel::import(new SalesImport, $request->file);
-        return redirect()->back()->with('success','Data sales berhasil di masukkan!');
+        return redirect()->back()->with('success','Data Sales berhasil di masukkan!');
     }
 }

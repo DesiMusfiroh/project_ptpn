@@ -81,7 +81,7 @@
             </div>    
         </div>
       </div>
-      
+
       <div class="row">
         <div class="col-md-8">
           <div class="card">
@@ -201,7 +201,6 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 
-    // grafik per sales
       var analytics_sales = <?php echo $tabel_sales; ?>;
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
@@ -221,7 +220,7 @@
 </script>
 
 <script type="text/javascript">
-    // grafik per wilayah
+
     var analytics_wilayah = <?php echo $tabel_wilayah; ?>;
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
