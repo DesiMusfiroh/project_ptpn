@@ -123,7 +123,13 @@
                         <div class="form-group row">
                             <label for="wilayah" class="col-sm-4 col-form-label">Wilayah</label>
                             <div class="col-sm-8">
-                            <input type="text" class="form-control" id="wilayah" name="wilayah" >
+                                <select name="wilayah" class="form-control"  id="wilayah">
+                                    <option value="">Pilih Wilayah</option>
+                                    @foreach ($wilayah as $item)
+                                    <option value="{{ $item->nama }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                            <!-- <input type="text" class="form-control" id="wilayah" name="wilayah" > -->
                             </div>
                         </div>
                       
@@ -172,16 +178,16 @@
                         </div>
                         <div class="form-group row">
                             <label for="wilayah" class="col-sm-4 col-form-label">Wilayah </label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8">s
                             <input type="text" class="form-control" name="wilayah" id="wilayah_update" >
                             </div>
                         </div>
                     </div>                               
-
             </div>
+
             <div class="modal-footer">   
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-warning">Update</button>                               
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-warning">Update</button>                               
             </div>
             </form>
 
@@ -214,7 +220,7 @@
         </form>
         </div>
     </div>
-    </div>
+</div>
 <!-- Penutup Delete Modal -->
 
 <script>

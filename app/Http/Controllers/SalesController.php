@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Imports\SalesImport;
 use App\Models\Sales;
+use App\Models\Wilayah;
 use Excel;
 
 class SalesController extends Controller
@@ -12,7 +13,8 @@ class SalesController extends Controller
     public function indexAdmin()
     {
         $sales = Sales::all();
-        return view('admin.sales',compact('sales'));
+        $wilayah = Wilayah::all();
+        return view('admin.sales',compact('sales','wilayah'));
     }
 
     public function store(Request $request)

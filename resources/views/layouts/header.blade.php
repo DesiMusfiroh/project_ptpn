@@ -12,7 +12,7 @@
             <img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
             <div class="d-sm-none d-lg-inline-block">Hai, {{ Auth::user()->name }}</div></a>
             <div class="dropdown-menu dropdown-menu-right">
-              <div class="dropdown-title">Admin SBUPTK </div>
+              <div class="dropdown-title">Admin SBUTK </div>
               <!-- <a href="#" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profil
               </a> -->

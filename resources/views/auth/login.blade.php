@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Login &mdash; Stisla</title>
+  <title>Login &mdash;</title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -25,7 +25,7 @@
           <div class="p-4 m-3">
             <img src="../assets/img/stisla-fill.svg" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
             <h4 class="text-dark font-weight-normal">Selamat Datang !</h4>
-            <p class="text-muted">Jika anda adalah Admin SBUPTK, silahkan login terlebih dahulu dengan akun admin !.</p>
+            <p class="text-muted">Jika anda adalah Admin SBUTK, silahkan login terlebih dahulu dengan akun admin !.</p>
             
             <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate=""> @csrf
               <div class="form-group">
@@ -81,7 +81,7 @@
             </form>
 
             <div class="text-center mt-5 text-small">
-                Copyright &copy; SBUPTK 2021
+                Copyright &copy; SBUTK 2021
             </div>
 
           </div>
