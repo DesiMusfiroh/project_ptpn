@@ -44,7 +44,8 @@ class WelcomeController extends Controller
         }
         return view('welcome', compact('total_penjualan','total_cash_in','total_piutang','rekap_per_sales','rekap_per_wilayah','rekap_per_bulan'))
         ->with('tabel_sales', json_encode($array_sales))
-        ->with('tabel_wilayah',json_encode($array_wilayah));
+        ->with('tabel_wilayah',json_encode($array_wilayah))
+        ->with('tabel_bulan',json_encode($array_bulan));
 
     }
 }

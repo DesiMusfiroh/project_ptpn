@@ -70,14 +70,14 @@
                 <nav class="navbar navbar-secondary navbar-expand-lg">
                     <div class="container">
                     <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown active">
                         <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i class="far fa-clone"></i><span>Penjualan</span></a>
                         <!-- <ul class="dropdown-menu">
                             <li class="nav-item"><a href="index-0.html" class="nav-link">General Dashboard</a></li>
                             <li class="nav-item"><a href="index.html" class="nav-link">Ecommerce Dashboard</a></li>
                         </ul> -->
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                         <a href="#" class="nav-link"><i class="far fa-clone"></i><span>Piutang</span></a>
                         </li>
                         <li class="nav-item dropdown">
@@ -145,6 +145,20 @@
                             </div>
                             </div>    
                         </div>
+
+                        <div class="row">
+                        <div class="col-md-12">
+                            <div class="card justify-content-center">
+                                <div class="card-header"> 
+                                    <h4>Grafik Rekapitulasi Per Sales</h4>
+                                </div>
+                                <div class="card-body mr-3 ml-3">
+                                    <div id="chart_rekap_per_bulan" style="height: 200px;"></div>
+                                </div>
+                                
+                            </div>    
+                        </div>
+
                     </div>
                     </section>
                 </div>
@@ -169,6 +183,26 @@
         <script src="../assets/js/scripts.js"></script>
         <script src="../assets/js/custom.js"></script>
 
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+
+            var analytics_bulan = <?php echo $tabel_bulan; ?>;
+            google.charts.load('current', {'packages':['line']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+
+            var data = new google.visualization.arrayToDataTable(analytics_bulan);    
+            var options = {
+                chart: {
+                    title: ' ',      
+                }
+                };
+            var chart = new google.charts.Line(document.getElementById('chart_rekap_per_bulan'));
+            chart.draw(data, google.charts.Line.convertOptions(options));
+
+            }
+        </script>
     </body>
 
 </html>
