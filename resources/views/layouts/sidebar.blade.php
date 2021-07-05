@@ -7,12 +7,20 @@
         <a href="index.html">St</a>
       </div>
       <ul class="sidebar-menu">
-
+        <!-- 
           <li class="menu-header">Dashboard</li>
           <li class="{{(request()->is('home')) ? 'active' : ''}}" ><a class="nav-link" href="/home"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
-        
+         -->
+          <li class="nav-item dropdown {{(request()->is('home')) ? 'active' : ''}}">
+            <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i> <span>Dashboard</span></a>
+            <ul class="dropdown-menu">
+              <li><a class="nav-link" href="/home">Dashboard Utama</a></li>
+              <li><a class="nav-link" href="/home/search">Dashboard Bulanan</a></li>
+            </ul>
+          </li>
+
           <li class="menu-header">Faktur</li>
-          <li><a class="nav-link" href="/admin/faktur"><i class="fas fa-pencil-ruler"></i> <span>Data Faktur Penjualan</span></a></li>
+          <li class="{{(request()->is('admin/faktur')) ? 'active' : ''}}"><a class="nav-link" href="/admin/faktur"><i class="fas fa-pencil-ruler"></i> <span>Data Faktur Penjualan</span></a></li>
         
           <li class="nav-item dropdown">
             <a href="#" class="nav-link has-dropdown"><i class="far fa-file-alt"></i> <span>Excel Data (csv)</span></a>

@@ -18,6 +18,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']],function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/home/search', [HomeController::class, 'search'])->name('search');
     Route::group(['prefix' => 'admin'],function(){
         Route::group(['prefix' => 'sales'],function(){
             Route::get('/', [SalesController::class, 'indexAdmin'])->name('sales');

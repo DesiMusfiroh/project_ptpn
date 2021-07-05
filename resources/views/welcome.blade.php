@@ -84,7 +84,6 @@
                         <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i class="far fa-clone"></i><span>Cash In</span></a>
                         <!-- <ul class="dropdown-menu">
                             <li class="nav-item"><a href="#" class="nav-link">Not Dropdown Link</a></li>
-                           
                         </ul> -->
                         </li>
                     </ul>
@@ -147,10 +146,10 @@
                         </div>
 
                         <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 col-sm-12 col-lg-12">
                             <div class="card justify-content-center">
                                 <div class="card-header"> 
-                                    <h4>Grafik Rekapitulasi Per Sales</h4>
+                                    <h4>Grafik Rekapitulasi Per Bulan</h4>
                                 </div>
                                 <div class="card-body mr-3 ml-3">
                                     <div id="chart_rekap_per_bulan" style="height: 200px;"></div>
@@ -162,9 +161,7 @@
                     </div>
                     </section>
                 </div>
-            </div>
-        
-            
+            </div>   
         </div>
     
       <!-- General JS Scripts -->
@@ -197,7 +194,7 @@
                 chart: {
                     title: ' ',      
                 }
-                };
+            };
             var chart = new google.charts.Line(document.getElementById('chart_rekap_per_bulan'));
             chart.draw(data, google.charts.Line.convertOptions(options));
 

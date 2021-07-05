@@ -8,6 +8,7 @@ use App\Models\Faktur;
 use App\Models\ViewRekapPerSales;
 use App\Models\ViewRekapPerWilayah;
 use App\Models\ViewRekapPerBulan;
+use App\Models\ViewRekapBulanSales;
 
 class HomeController extends Controller
 {
@@ -58,5 +59,19 @@ class HomeController extends Controller
         //     return $row->sum('penjualan');
         // });
         // dd($faktur_per_wilayah);
+    }
+
+    public function search(Request $request) {
+        if ($request->has('cari')) {
+            $rekap_bulan_sales = ViewRekapBulanSales::where('bulan','=',$request->cari)->get();
+            $title = "Bulan $request->cari ";
+        }else {
+            $rekap_bulan_sales = ViewRekapBulanSales::all();            
+            $title = "Bulan ";
+        }
+
+        $bulan = ViewRekapBulanSales::groupBy('bulan')->pluck('bulan');
+ 
+        return view('admin.search', compact('rekap_bulan_sales','bulan', 'title'));
     }
 }

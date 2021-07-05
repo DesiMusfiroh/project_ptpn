@@ -7,7 +7,6 @@
     </div>
 
     <div class="section-body">
-
       <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
           <div class="card card-statistic-1">
@@ -196,7 +195,6 @@
     </div>
 
 </section>
-
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
