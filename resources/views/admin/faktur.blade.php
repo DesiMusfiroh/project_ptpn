@@ -69,7 +69,9 @@
                                             data-no_faktur_update="{{ $item->no_faktur }}"
                                             data-tanggal_faktur_update="{{ $item->tanggal_faktur }}"     
                                             data-sales_update="{{ $item->sales_id }}"
+                                            data-nama_sales_update="{{ $item->sales->nama }}"
                                             data-wilayah_update="{{ $item->wilayah_id }}"
+                                            data-nama_wilayah_update="{{ $item->wilayah->nama }}"
                                             data-nama_outlet_update="{{ $item->nama_outlet }}"
                                             data-penjualan_update="{{ $item->penjualan }}"
                                             data-cash_in_update="{{ $item->cash_in }}"
@@ -89,7 +91,8 @@
                             </tbody>
                         </table>
                     </div>
-                  
+
+                    </div>   
                   </div>
                 </div>
             </div>
@@ -107,7 +110,7 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{route('faktur.update')}}" method="post">
+            <form action="{{route('faktur.update')}}" method="post" enctype="multipart/form-data" >
             <div class="modal-body">
                 @csrf
                 @method('PATCH')
@@ -129,13 +132,25 @@
                         <div class="form-group row">
                             <label for="sales" class="col-sm-4 col-form-label">Sales</label>
                             <div class="col-sm-8">
-                            <input type="text" class="form-control" name="sales" id="sales_update" value="" >
+                                <select name="sales_id" class="form-control" id="sales_id">
+                                    <option id="sales_update" value="" selected> Pilih Sales <span class="nama_sales_update"></span> </option>
+                                    @foreach ($sales as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                            <!-- <input type="text" class="form-control" name="sales" id="sales_update" value="" > -->
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="wilayah" class="col-sm-4 col-form-label">Wilayah</label>
                             <div class="col-sm-8">
-                            <input type="text" class="form-control" name="wilayah" id="wilayah_update" value="" >
+                                <select name="wilayah_id" class="form-control"  id="wilayah_id">
+                                    <option id="wilayah_update" value="" selected> Pilih Wilayah <span class="nama_wilayah_update" value=""></span></option>
+                                    @foreach ($wilayah as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                            <!-- <input type="text" class="form-control" name="wilayah" id="wilayah_update" value="" > -->
                             </div>
                         </div>
                         <div class="form-group row">
@@ -208,7 +223,9 @@ $(document).ready(function(){
         var no_faktur_update      = $(this).data('no_faktur_update');  
         var tanggal_faktur_update = $(this).data('tanggal_faktur_update');  
         var sales_update          = $(this).data('sales_update');
+        var nama_sales_update     = $(this).data('nama_sales_update');
         var wilayah_update        = $(this).data('wilayah_update');
+        var nama_wilayah_update   = $(this).data('nama_wilayah_update');
         var nama_outlet_update    = $(this).data('nama_outlet_update');
         var penjualan_update      = $(this).data('penjualan_update');
         var cash_in_update        = $(this).data('cash_in_update');
@@ -218,7 +235,9 @@ $(document).ready(function(){
         $('#no_faktur_update').val(no_faktur_update);  
         $('#tanggal_faktur_update').val(tanggal_faktur_update);  
         $('#sales_update').val(sales_update);  
+        $('.nama_sales_update').text(nama_sales_update);  
         $('#wilayah_update').val(wilayah_update);  
+        $('.nama_wilayah_update').text(nama_wilayah_update);  
         $('#nama_outlet_update').val(nama_outlet_update);  
         $('#penjualan_update').val(penjualan_update);  
         $('#cash_in_update').val(cash_in_update);  

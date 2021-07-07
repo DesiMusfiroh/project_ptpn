@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Faktur;
+use App\Models\Sales;
+use App\Models\Wilayah;
 use App\Imports\FakturImport;
 use App\Exports\FakturExport;
 use Excel;
@@ -13,7 +15,9 @@ class FakturController extends Controller
     public function indexAdmin()
     {
         $faktur = Faktur::all();
-        return view('admin.faktur',compact('faktur'));
+        $sales = Sales::all();
+        $wilayah = Wilayah::all();
+        return view('admin.faktur',compact('faktur', 'sales', 'wilayah'));
     }
 
     public function importForm() {
@@ -31,8 +35,19 @@ class FakturController extends Controller
 
     public function update(Request $request)
     {
-        $faktur = Faktur::findOrFail($request->id);
-        $faktur->update($request->all());
+        $faktur      = Faktur::findorFail($request->id);
+
+        $update_faktur = [
+            'no_faktur' => $request->no_faktur,
+            'tanggal_faktur' => $request->tanggal_faktur,
+            'sales_id' => $request->sales_id,
+            'wilayah_id' => $request->wilayah_id,
+            'nama_outlet' => $request->nama_outlet,
+            'penjualan' => $request->penjualan,
+            'cash_in' => $request->cash_in,
+            'piutang' => $request->piutang,
+        ];
+        $faktur->update($update_faktur);
         return redirect()->back()->with('success','Data Faktur berhasil di update!');
     }
 

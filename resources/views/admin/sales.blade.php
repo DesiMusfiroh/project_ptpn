@@ -178,8 +178,14 @@
                         </div>
                         <div class="form-group row">
                             <label for="wilayah" class="col-sm-4 col-form-label">Wilayah </label>
-                            <div class="col-sm-8">s
-                            <input type="text" class="form-control" name="wilayah" id="wilayah_update" >
+                            <div class="col-sm-8">
+                                <select name="wilayah" class="form-control" id="wilayah">
+                                    <option id="wilayah_update" value="" selected>Pilih Wilayah</option>
+                                    @foreach ($wilayah as $item)
+                                    <option value="{{ $item->nama }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                            <!-- <input type="text" class="form-control" name="wilayah" id="wilayah_update" > -->
                             </div>
                         </div>
                     </div>                               
