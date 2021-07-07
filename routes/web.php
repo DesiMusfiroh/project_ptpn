@@ -38,6 +38,8 @@ Route::group(['middleware' => ['auth']],function(){
         
         Route::group(['prefix' => 'faktur'],function(){
             Route::get('/', [FakturController::class, 'indexAdmin']);
+            Route::patch('/update', [FakturController::class, 'update'])->name('faktur.update');
+            Route::post('/delete', [FakturController::class, 'delete'])->name('faktur.delete');
             Route::post('/import/store', [FakturController::class, 'import'])->name('faktur.import');
             Route::get('/export', [FakturController::class, 'export']);
         });

@@ -28,4 +28,18 @@ class FakturController extends Controller
     public function export() {
         return Excel::download(new FakturExport, 'data_faktur.csv');
     }
+
+    public function update(Request $request)
+    {
+        $faktur = Faktur::findOrFail($request->id);
+        $faktur->update($request->all());
+        return redirect()->back()->with('success','Data Faktur berhasil di update!');
+    }
+
+    public function delete(Request $request)
+    {
+        $faktur = Faktur::findOrFail($request->id);
+		$faktur->delete();
+		return redirect()->back()->with('success','Data Faktur berhasil di hapus!');
+    }
 }
