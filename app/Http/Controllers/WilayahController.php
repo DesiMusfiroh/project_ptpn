@@ -11,7 +11,7 @@ class WilayahController extends Controller
 {
     public function indexAdmin()
     {
-        $wilayah = Wilayah::all();
+        $wilayah = Wilayah::paginate(8);
         return view('admin.wilayah',compact('wilayah'));
     }
 

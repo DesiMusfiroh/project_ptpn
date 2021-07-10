@@ -12,11 +12,28 @@ use Excel;
 
 class FakturController extends Controller
 {
-    public function indexAdmin()
+    public function indexAdmin(Request $request)
     {
-        $faktur = Faktur::all();
         $sales = Sales::all();
         $wilayah = Wilayah::all();
+
+        if ($request->has('cari_sales')) {
+            $faktur = Faktur::where('sales_id', $request->cari_sales)->paginate(10);
+        }elseif ($request->has('cari_wilayah')){
+            $faktur = Faktur::where('wilayah_id', $request->cari_wilayah)->paginate(10);
+        }elseif ($request->has('cari')) {
+            $faktur = Faktur::where('tanggal_faktur','LIKE','%'.$request->cari.'%')
+                    ->orWhere('no_faktur','LIKE','%'.$request->cari.'%')
+                    ->orWhere('nama_outlet','LIKE','%'.$request->cari.'%')->paginate(10);
+        }
+        // elseif ($request->has('cari_tanggal_faktur')) {
+        //     $faktur = Faktur::where('tanggal_faktur','LIKE','%'.$request->cari_tanggal_faktur.'%')->all();
+        // }elseif ($request->has('cari_no_faktur')) {
+        //     $faktur = Faktur::where('no_faktur','LIKE','%'.$request->cari_no_faktur.'%')->all();
+        // }
+        else {
+            $faktur = Faktur::paginate(10);
+        }
         return view('admin.faktur',compact('faktur', 'sales', 'wilayah'));
     }
 
@@ -36,7 +53,6 @@ class FakturController extends Controller
     public function update(Request $request)
     {
         $faktur      = Faktur::findorFail($request->id);
-
         $update_faktur = [
             'no_faktur' => $request->no_faktur,
             'tanggal_faktur' => $request->tanggal_faktur,

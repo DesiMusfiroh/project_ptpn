@@ -8,8 +8,8 @@
 
     <div class="section-body">
         <div class="row">
-            <div class="col-md-6">
-                <div class="card">
+            <div class="col-md-5">
+                <div class="card card-primary">
                     <div class="card-header">
                         <h4>Import Data </h4>
                     </div>
@@ -17,8 +17,7 @@
                         <form action="{{route('faktur.import')}}" method="POST" enctype="multipart/form-data">
                             @csrf 
                             <div class="form-group">
-                                <label for="file">Choose CSV</label>
-                                <input type="file" name="file" class="form-control"/>
+                                <input type="file" name="file"/>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>

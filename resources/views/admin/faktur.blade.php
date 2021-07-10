@@ -8,33 +8,94 @@
 
     <div class="section-body">
         <div class="row">
-            <div class="col-12 col-md-12 col-lg-12">
-                <div class="card">
-                    <div class="card-header mb-0">
-                        <h4>List Faktur Penjualan</h4>
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4>Pencarian</h4>
                     </div>
                     <div class="card-body">
-                    
-                    @if ($message = Session::get('success'))               
-                        <div class="alert alert-success alert-block">
-                            <button type="button" class="close" data-dismiss="alert">×</button>
-                            <strong>{{ $message }}</strong>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <form action="{{route('faktur')}}" method="GET">
+                                    <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" name="cari" placeholder="Masukkan kata kunci pencarian .." aria-label="">
+                                        <div class="input-group-append">
+                                        <button class="btn btn-success" type="submit">Cari</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="/admin/faktur"><button class="btn btn-primary" type="button">Refresh</button></a> 
+                            </div>
+                                
+                                <!-- <div class="col-md-3">
+                                    <select name="cari_sales" id="cari_sales" class="form-control">
+                                        <option value="">Pilih Sales</option>
+                                        @foreach($sales as $item)
+                                        <option value="{{ $item }}">{{$item}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select name="cari_wilayah" id="cari_wilayah" class="form-control">
+                                        <option value="">Pilih Wilayah</option>
+                                        @foreach($wilayah as $item)
+                                        <option value="{{ $item }}">{{$item}}</option>
+                                        @endforeach
+                                    </select>
+                                </div> -->
+                                <!-- <div class="col-md-3">
+                                    <input type="text" name="cari_tanggal_faktur" class="form-control" placeholder="Tanggal">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" name="cari_no_faktur" class="form-control" placeholder="No Faktur">
+                                </div>
+                                <div class="col-md-1">
+                                    <button class="btn btn-success" type="submit">Cari</button>
+                                </div> -->
+                                <!-- <div class="col-md-1">
+                                    <a href="/admin/faktur"></a> <button class="btn btn-primary">Refresh</button>
+                                </div> -->
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>List Faktur Penjualan</h4>
+                        <div class="card-header-action">
+                            <div class="dropdown mr-2">
+                                <a href="#" class="dropdown-toggle btn btn-primary" data-toggle="dropdown">Filter Sales</a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    @foreach ($sales as $item)
+                                    <a href="{{route('faktur',['cari_sales'=> $item->id])}}"  class="dropdown-item has-icon">{{$item->nama}} </a>
+                                    @endforeach
+                                    <div class="dropdown-divider"></div>
+                                    <a href="#" class="dropdown-item">View All</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a href="#" class="dropdown-toggle btn btn-primary" data-toggle="dropdown">Filter Wilayah</a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    @foreach ($wilayah as $item)
+                                    <a href="{{route('faktur',['cari_wilayah'=> $item->id])}}"  class="dropdown-item has-icon">{{$item->nama}} </a>
+                                    @endforeach
+                                    <div class="dropdown-divider"></div>
+                                    <a href="#" class="dropdown-item">View All</a>
+                                </div>
+                            </div>
                         </div>
-                    @endif
-                        
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif  
-
-                    <div class="table-inside">
-                        <table class="table table-striped table-md">
+                    </div>
+                    <div class="card-body p-0">
+            
+                    <div class="table-inside table-responsive">
+                        <table class="table table-striped mb-0 table-bordered table-md">
                         <thead>
                             <tr>
                                 <th scope="col" style="width:50px">No</th>
@@ -63,7 +124,7 @@
                                     <td class="text-center">Rp. {{ number_format($item->cash_in) }}</td>
                                     <td class="text-center">Rp. {{ number_format($item->piutang) }}</td> 
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-warning btn-sm mb-1" data-toggle="modal" data-target=".update_modal"
+                                        <button type="button" class="btn btn-warning btn-sm btn-action mr-1 mb-1" data-toggle="modal" data-target=".update_modal"
                                             id="update"                                   
                                             data-id="{{ $item->id }}"    
                                             data-no_faktur_update="{{ $item->no_faktur }}"
@@ -79,13 +140,13 @@
                                             <i class="fa fa-edit"></i>             
                                         </button>
                                     
-                                        <button class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target=".delete_modal"
+                                        <button class="btn btn-danger btn-sm btn-action mr-1 mb-1" data-toggle="modal" data-target=".delete_modal"
                                             id="delete"
                                             data-id_delete="{{ $item->id }}"
                                             data-no_faktur_delete="{{ $item->no_faktur }}">
                                             <i class="fa fa-trash"></i>                                       
                                         </button>
-                                    </td>    
+                                    </td>  
                                 </tr>
                                 @endforeach 
                             </tbody>
@@ -95,6 +156,12 @@
                     </div>   
                   </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                {{$faktur->links('vendor.pagination.pagination')}}
             </div>
         </div>
     </div>

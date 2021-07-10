@@ -12,12 +12,12 @@
         <div class="row">
             <div class="col-12 col-md-8 col-lg-8">
                 <div class="card">
-                    <div class="card-header mb-0">
+                    <div class="card-header">
                         <h4>List Sales</h4>
                     </div>
-                    <div class="card-body">
-                        <div class="table-inside">
-                            <table class="table table-striped table-md">
+                    <div class="card-body p-0">
+                        <div class="table-inside table-responsive">
+                            <table class="table table-striped table-bordered mb-0">
                                 <thead>
                                     <tr>
                                     <th scope="col" class="text-center">No</th>
@@ -37,7 +37,7 @@
                                         <td scope="row" >{{ $item->wilayah }}</td>
                                                                 
                                         <td scope="row" class="text-center">
-                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".update_modal"
+                                            <button type="button" class="btn btn-warning btn-sm btn-action mr-1 mb-1" data-toggle="modal" data-target=".update_modal"
                                                 id="update"                                   
                                                 data-id="{{ $item->id }}"    
                                                 data-kode_update="{{ $item->kode }}" 
@@ -46,7 +46,7 @@
                                                 <i class="fa fa-edit"></i>             
                                             </button>
                                         
-                                            <button class="btn btn-danger" data-toggle="modal" data-target=".delete_modal"
+                                            <button class="btn btn-danger btn-sm btn-action mr-1 mb-1" data-toggle="modal" data-target=".delete_modal"
                                                 id="delete"
                                                 data-id_delete="{{ $item->id }}"
                                                 data-kode_delete="{{ $item->kode }}"
@@ -61,33 +61,45 @@
                         </div>
                   </div>
                 </div>
-            </div>
 
-            <div class="col-12 col-md-4 col-lg-4">
-                <div class="card">
-                    <div class="card-header mb-0">
-                        <h4>Tambah Data Sales</h4>
-                    </div>
-                    <div class="card-body">
-                        <a> <button type="button" class="btn" style="background-color:#c4eb2a;" data-toggle="modal" data-target=".create_modal" id="create">
-                            Tambah Sales</button> 
-                        </a> 
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header mb-0">
-                        <h4>Import Data Sales dari Excel (.csv)</h4>
-                    </div>
-                    <div class="card-body">
-                        <form action="{{route('sales.import')}}" method="POST" enctype="multipart/form-data">
-                            @csrf 
-                            <input type="file" name="file" class="form-control mb-4"/>
-                            <button type="submit" class="btn btn-primary">Import Data </button>
-                        </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        {{$sales->links('vendor.pagination.pagination')}}
                     </div>
                 </div>
             </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h4>Tambah Data Sales</h4>
+                            </div>
+                            <div class="card-body text-center">
+                                <a> <button type="button" class="btn btn-success" data-toggle="modal" data-target=".create_modal" id="create">
+                                    Tambah Sales</button> 
+                                </a> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h4>Import Data Sales (.csv)</h4>
+                            </div>
+                            <div class="card-body">
+                                <form action="{{route('sales.import')}}" method="POST" enctype="multipart/form-data">
+                                    @csrf 
+                                    <input type="file" name="file" class="mb-4"/>
+                                    <button type="submit" class="btn btn-primary">Import Data </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </div>

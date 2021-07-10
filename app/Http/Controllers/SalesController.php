@@ -12,7 +12,7 @@ class SalesController extends Controller
 {
     public function indexAdmin()
     {
-        $sales = Sales::all();
+        $sales = Sales::paginate(8);
         $wilayah = Wilayah::all();
         return view('admin.sales',compact('sales','wilayah'));
     }
