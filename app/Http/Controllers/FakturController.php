@@ -42,7 +42,7 @@ class FakturController extends Controller
     }
 
     public function import(Request $request) {
-        Excel::import(new FakturImport, $request->file);
+        Excel::import(new FakturImport, $request->file, $request->keyword);
         return redirect('/admin/faktur')->with('success','Data faktur berhasil di masukkan!');
     }
 

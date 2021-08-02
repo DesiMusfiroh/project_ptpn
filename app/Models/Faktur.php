@@ -10,7 +10,7 @@ use App\Models\Wilayah;
 class Faktur extends Model
 {
     protected $table ='faktur';
-    protected $fillable = ['no_faktur','tanggal_faktur','sales_id','wilayah_id','nama_outlet','penjualan','cash_in','piutang'];
+    protected $fillable = ['no_faktur','tanggal_faktur','sales_id','wilayah_id','nama_outlet','penjualan','cash_in','piutang','keyword'];
 
     public function wilayah() {
         return $this->belongsTo(Wilayah::class);

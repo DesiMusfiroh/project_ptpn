@@ -16,10 +16,6 @@
                     <form action="{{route('faktur.import')}}" method="POST" enctype="multipart/form-data">
                     @csrf 
                     <div class="card-body">
-                        <div class="form-group">
-                            <label for="keyword_excel">Keyword Data Excel</label>
-                            <input type="text" class="form-control" placeholder="Contoh keyword : 01/2021 - Jambi">
-                        </div>
                         <div class="form-group mb-0">
                             <label for="file">Pilih Data Excel (.csv)</label>
                             <input type="file" name="file"/>
@@ -45,7 +41,8 @@
                     <ul>
                         <li>Data yang di import harus berupa file <b> excel dengan format .csv </b></li>
                         <li>Penamaan header kolom pada excel harus seperti yang tertera pada gambar diatas, yaitu dengan urutan : <b> no_faktur, tanggal_faktur, kode_sales, kode_wilayah, nama_sales, wilayah, nama_outlet, penjualan, cash_in, piutang </b></li>
-                        <li>Agar lebih terstrukur, Keyword Data Excel yang dimasukkan sebaiknya mengikuti contoh berikut : <b> [bulan]/[tahun] - [wilayah] </b>.</li>
+                        <li>Agar lebih terstrukur, Keyword data excel yang dimasukkan sebaiknya mengikuti contoh berikut : <b> [bulan]/[tahun] [wilayah] </b>.</li>
+                        <li>Pastikan data di kolom tanggal_faktur menggunakan format <b>"date"</b>.</li>
                     </ul>
                   </div>
                 </div>

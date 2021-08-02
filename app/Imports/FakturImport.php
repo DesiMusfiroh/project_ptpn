@@ -46,6 +46,7 @@ class FakturImport implements ToModel, WithHeadingRow
                 'penjualan'         => $row['penjualan'],
                 'cash_in'           => $row['cash_in'],
                 'piutang'           => $row['piutang'],
+                'keyword'           => $row['keyword'],   
             ]);  
         } 
         elseif ($check_faktur) {
@@ -58,15 +59,9 @@ class FakturImport implements ToModel, WithHeadingRow
                 'penjualan'         => $row['penjualan'],
                 'cash_in'           => $row['cash_in'],
                 'piutang'           => $row['piutang'],
+                'keyword'           => $row['keyword'],   
             ];
             $posts = Faktur::where('no_faktur', $row['no_faktur'])->update($update_faktur);
         }
-        
-        // try {
-            
-        // } catch (Illuminate\Database\QueryException $e) {
-        //     dd($e);
-        // }
-        
     }
 }
