@@ -15,7 +15,7 @@
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i> <span>Dashboard</span></a>
             <ul class="dropdown-menu">
               <li><a class="nav-link" href="/home">Dashboard Utama</a></li>
-              <li><a class="nav-link" href="/home/search">Dashboard Bulanan</a></li>
+              <li><a class="nav-link" href="/home/bulan">Dashboard Bulanan</a></li>
             </ul>
           </li>
 

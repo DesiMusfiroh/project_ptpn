@@ -9,6 +9,8 @@ use App\Models\ViewRekapPerSales;
 use App\Models\ViewRekapPerWilayah;
 use App\Models\ViewRekapPerBulan;
 use App\Models\ViewRekapBulanSales;
+use App\Models\ViewRekapBulanWilayah;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -49,6 +51,13 @@ class HomeController extends Controller
             floatval($value->cash_in),
             floatval($value->piutang)];
         }
+        // $testdate = Carbon::parse(42322)->format('d/m/Y');
+        // $testdate = date("Y-m-d ", 1388516401);
+
+        $excel_timestamp = 44180; 
+        $php_timestamp = mktime(0,0,0,0,$excel_timestamp,1900); 
+        $mysql_timestamp = date('d/m/Y', $php_timestamp);
+
         return view('admin.dashboard', compact('total_penjualan','total_cash_in','total_piutang','rekap_per_sales','rekap_per_wilayah','rekap_per_bulan'))
         ->with('tabel_sales', json_encode($array_sales))
         ->with('tabel_wilayah',json_encode($array_wilayah));
@@ -59,19 +68,24 @@ class HomeController extends Controller
         //     return $row->sum('penjualan');
         // });
         // dd($faktur_per_wilayah);
+
     }
 
-    public function search(Request $request) {
-        if ($request->has('cari')) {
-            $rekap_bulan_sales = ViewRekapBulanSales::where('bulan','=',$request->cari)->get();
-            $title = "Bulan $request->cari ";
+    public function bulan(Request $request) {
+        if ($request->has('pilih_bulan')) {
+            $rekap_bulan_sales = ViewRekapBulanSales::where('bulan','=',$request->pilih_bulan)->get();
+            $rekap_bulan_wilayah = ViewRekapBulanWilayah::where('bulan','=',$request->pilih_bulan)->get();
+            $rekap_per_bulan = ViewRekapPerBulan::first();          
+            $title = "Bulan $request->pilih_bulan ";
         }else {
             $rekap_bulan_sales = ViewRekapBulanSales::all();            
+            $rekap_bulan_wilayah = ViewRekapBulanWilayah::all();  
+            $rekap_per_bulan = ViewRekapPerBulan::first();          
             $title = "Bulan ";
         }
 
         $bulan = ViewRekapBulanSales::groupBy('bulan')->pluck('bulan');
  
-        return view('admin.search', compact('rekap_bulan_sales','bulan', 'title'));
+        return view('admin.bulan', compact('rekap_bulan_sales','rekap_bulan_wilayah','rekap_per_bulan','bulan', 'title'));
     }
 }

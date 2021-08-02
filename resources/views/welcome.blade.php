@@ -71,20 +71,13 @@
                     <div class="container">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown active">
-                        <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i class="far fa-clone"></i><span>Penjualan</span></a>
-                        <!-- <ul class="dropdown-menu">
-                            <li class="nav-item"><a href="index-0.html" class="nav-link">General Dashboard</a></li>
-                            <li class="nav-item"><a href="index.html" class="nav-link">Ecommerce Dashboard</a></li>
-                        </ul> -->
+                            <a href="#" class="nav-link has-dropdown"><i class="far fa-clone"></i><span>Rekap Data Keseluruhan</span></a>
                         </li>
                         <li class="nav-item">
-                        <a href="#" class="nav-link"><i class="far fa-clone"></i><span>Piutang</span></a>
+                            <a href="#" class="nav-link has-dropdown"><i class="far fa-clone"></i><span>Rekap Bulanan</span></a>
                         </li>
                         <li class="nav-item dropdown">
-                        <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i class="far fa-clone"></i><span>Cash In</span></a>
-                        <!-- <ul class="dropdown-menu">
-                            <li class="nav-item"><a href="#" class="nav-link">Not Dropdown Link</a></li>
-                        </ul> -->
+                            <a href="#" class="nav-link has-dropdown"><i class="far fa-clone"></i><span>Rekap Harian</span></a>
                         </li>
                     </ul>
                     </div>

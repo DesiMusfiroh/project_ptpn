@@ -32,10 +32,14 @@ class FakturImport implements ToModel, WithHeadingRow
 
         $check_faktur = Faktur::where('no_faktur', $row['no_faktur'])->first();
         
+        $excel_timestamp = $row['tanggal_faktur']; 
+        $php_timestamp = mktime(0,0,0,0,$excel_timestamp,1900); 
+        $mysql_timestamp = date('d/m/Y', $php_timestamp);
+
         if (!$check_faktur) {
             $posts = Faktur::create([
                 'no_faktur'         => $row['no_faktur'],
-                'tanggal_faktur'    => $row['tanggal_faktur'],
+                'tanggal_faktur'    => $mysql_timestamp,
                 'sales_id'          => $sales->id,
                 'wilayah_id'        => $wilayah->id,
                 'nama_outlet'       => $row['nama_outlet'],
@@ -47,7 +51,7 @@ class FakturImport implements ToModel, WithHeadingRow
         elseif ($check_faktur) {
             $update_faktur = [
                 'no_faktur'         => $row['no_faktur'],
-                'tanggal_faktur'    => $row['tanggal_faktur'],
+                'tanggal_faktur'    => $mysql_timestamp,
                 'sales_id'          => $sales->id,
                 'wilayah_id'        => $wilayah->id,
                 'nama_outlet'       => $row['nama_outlet'],
@@ -57,5 +61,12 @@ class FakturImport implements ToModel, WithHeadingRow
             ];
             $posts = Faktur::where('no_faktur', $row['no_faktur'])->update($update_faktur);
         }
+        
+        // try {
+            
+        // } catch (Illuminate\Database\QueryException $e) {
+        //     dd($e);
+        // }
+        
     }
 }

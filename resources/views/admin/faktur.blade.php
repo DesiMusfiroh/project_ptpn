@@ -11,7 +11,7 @@
             <div class="col-12 col-md-6 col-lg-6">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h4>Pencarian</h4>
+                        <h4>Pencarian Data Faktur</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -63,7 +63,32 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4>Tambah Data Faktur</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="#r"><button class="btn btn-success" type="button">Tambah Data</button></a> 
+                            </div>
+                            <div class="col-md-8">
+                                <form action="{{route('faktur.import')}}" method="POST" enctype="multipart/form-data">
+                                    @csrf 
+                                    <div class="form-group">
+                                        <input type="file" name="file"/>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <div class="row">
             <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
