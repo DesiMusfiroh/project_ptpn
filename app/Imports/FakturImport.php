@@ -30,7 +30,7 @@ class FakturImport implements ToModel, WithHeadingRow
         $sales = Sales::where('kode', $row['kode_sales'])->first();
         $wilayah = Wilayah::where('kode', $row['kode_wilayah'])->first();
 
-        $check_faktur = Faktur::where('no_faktur', $row['no_faktur'])->first();
+        $check_faktur = Faktur::where('no_faktur', $row['no_faktur'])->where('keyword', $row['keyword'])->first();
         
         $excel_timestamp = $row['tanggal_faktur']; 
         $php_timestamp = mktime(0,0,0,0,$excel_timestamp,1900); 

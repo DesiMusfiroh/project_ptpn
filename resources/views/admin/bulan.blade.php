@@ -28,29 +28,26 @@
                     <li class="media">
                       <img class="mr-3 rounded" width="55" src="../assets/img/products/product-3-50.png" alt="product">
                       <div class="media-body">
-                        <div class="float-right"><div class="font-weight-600 text-muted text-small">86 Faktur</div></div>
                         <div class="media-title">Penjualan</div>
                         <div class="mt-1">
-                            <h5>Rp. {{ number_format($rekap_per_bulan->penjualan) }}</h5>
+                            <h5>Rp. {{ number_format($display_penjualan) }}</h5>
                         </div>
                       </div>
                     </li>
                     <li class="media">
                       <img class="mr-3 rounded" width="55" src="../assets/img/products/product-4-50.png" alt="product">
                       <div class="media-body">
-                        <div class="float-right"><div class="font-weight-600 text-muted text-small">67 Faktur</div></div>
                         <div class="media-title">Cash In</div>
                         <div class="mt-1">
-                            <h5>Rp. {{ number_format($rekap_per_bulan->cash_in) }}</h5>
+                            <h5>Rp. {{ number_format($display_cash_in) }}</h5>
                         </div>
                     </li>
                     <li class="media">
                       <img class="mr-3 rounded" width="55" src="../assets/img/products/product-1-50.png" alt="product">
                       <div class="media-body">
-                        <div class="float-right"><div class="font-weight-600 text-muted text-small">63 Faktur</div></div>
                         <div class="media-title">Piutang</div>
                         <div class="mt-1">
-                            <h5>Rp. {{ number_format($rekap_per_bulan->piutang) }}</h5>
+                            <h5>Rp. {{ number_format($display_piutang) }}</h5>
                         </div>
                       </div>
                     </li>
@@ -58,13 +55,9 @@
                 </div>
                 <div class="card-footer pt-3 d-flex justify-content-center">
                   <div class="budget-price justify-content-center">
-                    <div class="budget-price-square bg-primary" data-width="20"></div>
-                    <div class="budget-price-label">Selling Price</div>
+                    <div class="budget-price-label">Rekap Data {{$title}}</div>
                   </div>
-                  <div class="budget-price justify-content-center">
-                    <div class="budget-price-square bg-danger" data-width="20"></div>
-                    <div class="budget-price-label">Budget Price</div>
-                  </div>
+                
                 </div>
               </div>
             </div>

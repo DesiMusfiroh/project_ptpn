@@ -29,7 +29,7 @@
             </div>
 
             <div class="col-md-7">
-            <div class="card">
+                <div class="card">
                   <div class="card-header">
                     <h4>Ketentuan Import Data Faktur</h4>
                   </div>

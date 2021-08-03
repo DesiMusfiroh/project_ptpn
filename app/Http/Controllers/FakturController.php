@@ -18,36 +18,41 @@ class FakturController extends Controller
         $wilayah = Wilayah::all();
 
         if ($request->has('cari_sales')) {
-            $faktur = Faktur::where('sales_id', $request->cari_sales)->paginate(10);
-        }elseif ($request->has('cari_wilayah')){
-            $faktur = Faktur::where('wilayah_id', $request->cari_wilayah)->paginate(10);
-        }elseif ($request->has('cari')) {
+            $faktur = Faktur::where('sales_id', $request->cari_sales)->paginate(500);
+        } elseif ($request->has('cari_wilayah')){
+            $faktur = Faktur::where('wilayah_id', $request->cari_wilayah)->paginate(500);
+        } elseif ($request->has('cari')) {
             $faktur = Faktur::where('tanggal_faktur','LIKE','%'.$request->cari.'%')
                     ->orWhere('no_faktur','LIKE','%'.$request->cari.'%')
-                    ->orWhere('nama_outlet','LIKE','%'.$request->cari.'%')->paginate(10);
+                    ->orWhere('nama_outlet','LIKE','%'.$request->cari.'%')
+                    ->orWhere('keyword','LIKE','%'.$request->cari.'%')->paginate(1000);
+        } else {
+            $faktur = Faktur::paginate(50);
         }
-        // elseif ($request->has('cari_tanggal_faktur')) {
-        //     $faktur = Faktur::where('tanggal_faktur','LIKE','%'.$request->cari_tanggal_faktur.'%')->all();
-        // }elseif ($request->has('cari_no_faktur')) {
-        //     $faktur = Faktur::where('no_faktur','LIKE','%'.$request->cari_no_faktur.'%')->all();
-        // }
-        else {
-            $faktur = Faktur::paginate(10);
-        }
-        return view('admin.faktur',compact('faktur', 'sales', 'wilayah'));
+        $count = $faktur->count();
+        return view('admin.faktur',compact('faktur', 'sales', 'wilayah','count'));
     }
 
     public function importForm() {
         return view('admin.import');
     }
 
+    public function exportForm() {
+        $keyword = Faktur::groupBy('keyword')->get('keyword');
+        return view('admin.export', compact('keyword'));
+    }
+
     public function import(Request $request) {
-        Excel::import(new FakturImport, $request->file, $request->keyword);
+        Excel::import(new FakturImport, $request->file);
         return redirect('/admin/faktur')->with('success','Data faktur berhasil di masukkan!');
     }
 
-    public function export() {
-        return Excel::download(new FakturExport, 'data_faktur.csv');
+    public function exportKeyword(Request $request) {
+        return Excel::download(new FakturExport, "Faktur $request->keyword.csv");
+    }
+
+    public function exportAll() {
+        return Excel::download(new FakturExport, 'Data Faktur All.csv');
     }
 
     public function update(Request $request)

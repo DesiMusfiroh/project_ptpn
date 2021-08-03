@@ -26,7 +26,7 @@
             <a href="#" class="nav-link has-dropdown"><i class="far fa-file-alt"></i> <span>Excel Data (csv)</span></a>
             <ul class="dropdown-menu">
               <li><a class="nav-link" href="/admin/faktur_import">Import Data</a></li>
-              <li><a class="nav-link" href="/admin/faktur/export">Export Data</a></li>
+              <li><a class="nav-link" href="/admin/faktur_export">Export Data</a></li>
             </ul>
           </li>
 

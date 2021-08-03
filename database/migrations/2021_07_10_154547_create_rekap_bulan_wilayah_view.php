@@ -20,13 +20,22 @@ class CreateRekapBulanWilayahView extends Migration
     {
         return <<<SQL
            CREATE OR REPLACE VIEW rekap_bulan_wilayah AS SELECT 
-           SUBSTRING(tanggal_faktur, 4, 7) AS bulan, 
+           SUBSTRING(keyword, 1, 7) AS bulan, 
            wilayah_id, 
            SUM(penjualan) AS penjualan, 
            SUM(cash_in) AS cash_in, 
            SUM(piutang) AS piutang 
            FROM `faktur` 
-           GROUP BY SUBSTRING(tanggal_faktur, 4, 7), wilayah_id
+           GROUP BY SUBSTRING(keyword, 1, 7), wilayah_id
+
+        --    CREATE OR REPLACE VIEW rekap_bulan_wilayah AS SELECT 
+        --    SUBSTRING(tanggal_faktur, 4, 7) AS bulan, 
+        --    wilayah_id, 
+        --    SUM(penjualan) AS penjualan, 
+        --    SUM(cash_in) AS cash_in, 
+        --    SUM(piutang) AS piutang 
+        --    FROM `faktur` 
+        --    GROUP BY SUBSTRING(tanggal_faktur, 4, 7), wilayah_id
         SQL;
     }
 

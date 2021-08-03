@@ -141,7 +141,6 @@
                                     <option value="{{ $item->nama }}">{{ $item->nama }}</option>
                                     @endforeach
                                 </select>
-                            <!-- <input type="text" class="form-control" id="wilayah" name="wilayah" > -->
                             </div>
                         </div>
                       
@@ -158,23 +157,21 @@
     </div>
 <!-- Penutup Create Modal -->
 
-            
 <!-- Update  modal -->
-<div class="modal fade update_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog ">
+<div class="modal fade update_modal" tabindex="-1" role="dialog" id="exampleModal">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"> Update Data Sales </h5>
+                <h5 class="modal-title">Update Data Sales</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
-            </div>
-            <form action="{{route('sales.update')}}" method="post">
-            <div class="modal-body">
+                </div>
+                <form action="{{route('sales.update')}}" method="post">
+                <div class="modal-body">
                 @csrf
                 @method('PATCH')
-                    <div class="container">
-                     
+                    <div class="container">   
                         <input type="hidden" name="id" id="id" value="">  
                         <div class="form-group row">
                             <label for="kode" class="col-sm-4 col-form-label">Kode Sales</label>
@@ -197,22 +194,18 @@
                                     <option value="{{ $item->nama }}">{{ $item->nama }}</option>
                                     @endforeach
                                 </select>
-                            <!-- <input type="text" class="form-control" name="wilayah" id="wilayah_update" > -->
                             </div>
                         </div>
-                    </div>                               
-            </div>
-
-            <div class="modal-footer">   
+                    </div>   
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-warning">Update</button>                               
+                <button type="submit" class="btn btn-warning">Update</button>
+                </form>
             </div>
-            </form>
-
         </div>
     </div>
-    </div>
-    
+</div>    
 <!-- Penutup Update  modal -->
 
 <!-- Delete Modal -->

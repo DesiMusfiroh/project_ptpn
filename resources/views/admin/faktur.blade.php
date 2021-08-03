@@ -8,7 +8,7 @@
 
     <div class="section-body">
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-6">
+            <div class="col-12 col-md-9 col-lg-9">
                 <div class="card card-primary">
                     <div class="card-header">
                         <h4>Pencarian Data Faktur</h4>
@@ -19,7 +19,7 @@
                                 <form action="{{route('faktur')}}" method="GET">
                                     <div class="form-group">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name="cari" placeholder="Masukkan kata kunci pencarian .." aria-label="">
+                                        <input type="text" class="form-control" name="cari" placeholder="Masukkan kata kunci pencarian .." aria-label="" value="{{ old('cari') }}" >
                                         <div class="input-group-append">
                                         <button class="btn btn-success" type="submit">Cari</button>
                                         </div>
@@ -30,60 +30,18 @@
                             <div class="col-md-3">
                                 <a href="/admin/faktur"><button class="btn btn-primary" type="button">Refresh</button></a> 
                             </div>
-                                
-                                <!-- <div class="col-md-3">
-                                    <select name="cari_sales" id="cari_sales" class="form-control">
-                                        <option value="">Pilih Sales</option>
-                                        @foreach($sales as $item)
-                                        <option value="{{ $item }}">{{$item}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <select name="cari_wilayah" id="cari_wilayah" class="form-control">
-                                        <option value="">Pilih Wilayah</option>
-                                        @foreach($wilayah as $item)
-                                        <option value="{{ $item }}">{{$item}}</option>
-                                        @endforeach
-                                    </select>
-                                </div> -->
-                                <!-- <div class="col-md-3">
-                                    <input type="text" name="cari_tanggal_faktur" class="form-control" placeholder="Tanggal">
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="text" name="cari_no_faktur" class="form-control" placeholder="No Faktur">
-                                </div>
-                                <div class="col-md-1">
-                                    <button class="btn btn-success" type="submit">Cari</button>
-                                </div> -->
-                                <!-- <div class="col-md-1">
-                                    <a href="/admin/faktur"></a> <button class="btn btn-primary">Refresh</button>
-                                </div> -->
                         </div> 
                     </div>
                 </div>
             </div>
 
-            <div class="col-12 col-md-6 col-lg-6">
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h4>Tambah Data Faktur</h4>
+            <div class="col-md-3 col-12">
+                <div class="card">
+                    <div class="card-header justify-content-center">
+                        <h4 class="text-center">Jumlah Data Faktur</h4>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <a href="#r"><button class="btn btn-success" type="button">Tambah Data</button></a> 
-                            </div>
-                            <div class="col-md-8">
-                                <form action="{{route('faktur.import')}}" method="POST" enctype="multipart/form-data">
-                                    @csrf 
-                                    <div class="form-group">
-                                        <input type="file" name="file"/>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </form>
-                            </div>
-                        </div>
+                    <div class="card-body bg-secondary">
+                        <h2 class="text-center">{{ $count }}</h2>
                     </div>
                 </div>
             </div>

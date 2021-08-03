@@ -13,6 +13,8 @@ use App\Http\Controllers\ChangePasswordController;
 //     return view('welcome');
 // });
 Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/bulanan', [WelcomeController::class, 'index.bulanan']);
+Route::get('/harian', [WelcomeController::class, 'index.harian']);
 
 Auth::routes();
 
@@ -41,9 +43,11 @@ Route::group(['middleware' => ['auth']],function(){
             Route::patch('/update', [FakturController::class, 'update'])->name('faktur.update');
             Route::post('/delete', [FakturController::class, 'delete'])->name('faktur.delete');
             Route::post('/import/store', [FakturController::class, 'import'])->name('faktur.import');
-            Route::get('/export', [FakturController::class, 'export']);
         });
         Route::get('/faktur_import', [FakturController::class, 'importForm']);
+        Route::get('/faktur_export', [FakturController::class, 'exportForm']);
+        Route::post('/faktur_export/keyword', [FakturController::class, 'exportKeyword'])->name('faktur.export.keyword');
+        Route::get('/faktur_export/all', [FakturController::class, 'exportAll'])->name('faktur.export.all');
     });
 
     Route::get('change-password', [ChangePasswordController::class, 'index']);
