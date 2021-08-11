@@ -19,17 +19,21 @@ class FakturController extends Controller
 
         if ($request->has('cari_sales')) {
             $faktur = Faktur::where('sales_id', $request->cari_sales)->paginate(500);
+            $count = $faktur->count();
         } elseif ($request->has('cari_wilayah')){
             $faktur = Faktur::where('wilayah_id', $request->cari_wilayah)->paginate(500);
+            $count = $faktur->count();
         } elseif ($request->has('cari')) {
             $faktur = Faktur::where('tanggal_faktur','LIKE','%'.$request->cari.'%')
                     ->orWhere('no_faktur','LIKE','%'.$request->cari.'%')
                     ->orWhere('nama_outlet','LIKE','%'.$request->cari.'%')
-                    ->orWhere('keyword','LIKE','%'.$request->cari.'%')->paginate(1000);
+                    ->orWhere('keyword','LIKE','%'.$request->cari.'%')->orderBy('tanggal_faktur', 'desc')->paginate(1000);
+            $count = $faktur->count();
         } else {
             $faktur = Faktur::paginate(50);
+            $count = Faktur::all()->count();
         }
-        $count = $faktur->count();
+        
         return view('admin.faktur',compact('faktur', 'sales', 'wilayah','count'));
     }
 

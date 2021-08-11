@@ -12,9 +12,9 @@ use App\Http\Controllers\ChangePasswordController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', [WelcomeController::class, 'index']);
-Route::get('/bulanan', [WelcomeController::class, 'index.bulanan']);
-Route::get('/harian', [WelcomeController::class, 'index.harian']);
+Route::get('/', [WelcomeController::class, 'index'])->name('index');
+Route::get('/bulanan', [WelcomeController::class, 'bulanan'])->name('index.bulanan');
+Route::get('/harian', [WelcomeController::class, 'harian'])->name('index.harian');
 
 Auth::routes();
 

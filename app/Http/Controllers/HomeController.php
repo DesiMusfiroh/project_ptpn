@@ -81,14 +81,21 @@ class HomeController extends Controller
             $rekap_bulan = ViewRekapPerBulan::where('bulan', '=', $request->pilih_bulan)->first();
          
         }else {
-            $rekap_bulan_sales = ViewRekapBulanSales::where('bulan','=', '08/2020')->get();           
-            $rekap_bulan_wilayah = ViewRekapBulanWilayah::where('bulan','=', '08/2020')->get();       
-            $title = "Bulan 08/2020";
-            $rekap_bulan = ViewRekapPerBulan::where('bulan', '=', '08/2020')->first();
+            $rekap_bulan_sales = ViewRekapBulanSales::where('bulan','=', $current_month)->get();           
+            $rekap_bulan_wilayah = ViewRekapBulanWilayah::where('bulan','=', $current_month)->get();       
+            $title = "Bulan  $current_month";
+            $rekap_bulan = ViewRekapPerBulan::where('bulan', '=', $current_month)->first();
         }
-        $display_penjualan = $rekap_bulan->penjualan;
-        $display_cash_in = $rekap_bulan->cash_in;
-        $display_piutang = $rekap_bulan->piutang;
+
+        if($rekap_bulan == null) {
+            $display_penjualan = 0;
+            $display_cash_in = 0;
+            $display_piutang = 0;
+        } else {
+            $display_penjualan = $rekap_bulan->penjualan;
+            $display_cash_in = $rekap_bulan->cash_in;
+            $display_piutang = $rekap_bulan->piutang;
+        }
 
         $bulan = ViewRekapBulanSales::groupBy('bulan')->pluck('bulan');
         return view('admin.bulan', compact('bulan', 'title',

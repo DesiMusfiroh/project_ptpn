@@ -32,14 +32,14 @@ class FakturImport implements ToModel, WithHeadingRow
 
         $check_faktur = Faktur::where('no_faktur', $row['no_faktur'])->where('keyword', $row['keyword'])->first();
         
-        $excel_timestamp = $row['tanggal_faktur']; 
-        $php_timestamp = mktime(0,0,0,0,$excel_timestamp,1900); 
-        $mysql_timestamp = date('d/m/Y', $php_timestamp);
+        $excel_timestamp = $row['tanggal_faktur'];
+        $unix_date = ($excel_timestamp - 25569) * 86400;
+        $date = date("d/m/Y", $unix_date);
 
         if (!$check_faktur) {
             $posts = Faktur::create([
                 'no_faktur'         => $row['no_faktur'],
-                'tanggal_faktur'    => $mysql_timestamp,
+                'tanggal_faktur'    => $date,
                 'sales_id'          => $sales->id,
                 'wilayah_id'        => $wilayah->id,
                 'nama_outlet'       => $row['nama_outlet'],
@@ -51,17 +51,14 @@ class FakturImport implements ToModel, WithHeadingRow
         } 
         elseif ($check_faktur) {
             $update_faktur = [
-                'no_faktur'         => $row['no_faktur'],
-                'tanggal_faktur'    => $mysql_timestamp,
                 'sales_id'          => $sales->id,
                 'wilayah_id'        => $wilayah->id,
                 'nama_outlet'       => $row['nama_outlet'],
                 'penjualan'         => $row['penjualan'],
                 'cash_in'           => $row['cash_in'],
                 'piutang'           => $row['piutang'],
-                'keyword'           => $row['keyword'],   
             ];
-            $posts = Faktur::where('no_faktur', $row['no_faktur'])->update($update_faktur);
+            $posts = Faktur::where('no_faktur', $row['no_faktur'])->where('keyword', $row['keyword'])->update($update_faktur);
         }
     }
 }
