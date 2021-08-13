@@ -5,16 +5,21 @@
 <section class="section">
     <div class="section-header">
         <h1>Data Rekapitulasi Piutang {{$title}}</h1>
-         <div class="section-header-breadcrumb">
-         <div class="dropdown justify-content-right">
-            <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Pilih Bulan</a>
-            <ul class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                <li class="dropdown-title">Pilih Bulan</li>
-                @foreach ($bulan as $item)
-                <li><a href="{{route('index.bulanan',['pilih_bulan'=> $item])}}" class="dropdown-item">{{$item}}</a></li>
-                @endforeach
-            </ul>
-        </div>
+        <div class="section-header-breadcrumb">
+        <form action="{{route('index.bulanan')}}" enctype="multipart/form-data"  method="get">
+            <div class="form-group mb-0">
+                <div class="input-group mb-0">
+                <select class="custom-select" name="month" required>
+                    <option selected value="__">Pilih bulan </option>
+                    @foreach ($array_month as $key => $item)
+                        <option value="{{$key}}">{{$item}}</option>
+                    @endforeach
+                </select>
+                <input type="number" class="form-control" placeholder="Masukkan tahun" name="year" required>
+                <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
         </div>  
     </div>
 
@@ -159,11 +164,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <label>Date Picker</label>
-            <input type="text" class="form-control datepicker">
-        </div>
     </div>
 </section>
 
@@ -180,7 +180,8 @@
       var options = {
           chart: {
             title: '',      
-          }
+          },
+          colors: ['blue', 'green', 'orange']
         };
       var chart = new google.charts.Bar(document.getElementById('chart_rekap_per_wilayah'));
       chart.draw(data, google.charts.Bar.convertOptions(options));
@@ -199,7 +200,8 @@
       var options = {
           chart: {
             title: ' ',      
-          }
+          },
+          colors: ['blue', 'green', 'orange']
         };
       var chart = new google.charts.Bar(document.getElementById('chart_rekap_per_sales'));
       chart.draw(data, google.charts.Bar.convertOptions(options));

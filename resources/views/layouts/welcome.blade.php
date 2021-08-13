@@ -70,15 +70,9 @@
                 <nav class="navbar navbar-secondary navbar-expand-lg">
                     <div class="container">
                     <ul class="navbar-nav">
-                        <li class="nav-item dropdown {{(request()->is('/')) ? 'active' : ''}}">
-                            <a href="{{ route('index') }}" class="nav-link has-dropdown"><i class="far fa-clone"></i><span>Rekap Data Keseluruhan</span></a>
-                        </li>
-                        <li class="nav-item dropdown {{(request()->is('/bulanan')) ? 'active' : ''}}">
-                            <a href="{{ route('index.bulanan') }}" class="nav-link has-dropdown"><i class="far fa-clone"></i><span>Rekap Bulanan</span></a>
-                        </li>
-                        <li class="nav-item dropdown {{(request()->is('/harian')) ? 'active' : ''}}">
-                            <a href="{{ route('index.harian') }}" class="nav-link has-dropdown"><i class="far fa-clone"></i><span>Rekap Harian</span></a>
-                        </li>
+                        <li class="nav-item {{(request()->is('/')) ? 'active' : ''}}" ><a class="nav-link" href="{{ route('index') }}"><i class="far fa-clone"></i><span>Rekap Data Keseluruhan</span></a></li>
+                        <li class="nav-item {{(request()->is('bulanan')) ? 'active' : ''}}" ><a class="nav-link" href="{{ route('index.bulanan') }}"><i class="far fa-clone"></i><span>Rekap Data Bulanan</span></a></li>
+                        <li class="nav-item {{(request()->is('harian')) ? 'active' : ''}}" ><a class="nav-link" href="{{ route('index.harian') }}"><i class="far fa-clone"></i><span>Rekap Data Harian</span></a></li>
                     </ul>
                     </div>
                 </nav>
@@ -104,6 +98,10 @@
         <!-- Template JS File -->
         <script src="../assets/js/scripts.js"></script>
         <script src="../assets/js/custom.js"></script>
+
+        <!-- Bootstrap Date-Picker Plugin -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
     </body>
 

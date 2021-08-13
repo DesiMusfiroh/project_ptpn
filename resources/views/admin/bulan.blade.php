@@ -4,6 +4,22 @@
 <section class="section">
     <div class="section-header">
         <h1>Dashboard Bulanan</h1>
+        <div class="section-header-breadcrumb">
+        <form action="{{route('bulan')}}" enctype="multipart/form-data"  method="get">
+            <div class="form-group mb-0">
+                <div class="input-group mb-0">
+                <select class="custom-select" name="month" required>
+                    <option selected value="__">Pilih bulan </option>
+                    @foreach ($array_month as $key => $item)
+                        <option value="{{$key}}">{{$item}}</option>
+                    @endforeach
+                </select>
+                <input type="number" class="form-control" placeholder="Masukkan tahun" name="year" required>
+                <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+        </div>  
     </div>
 
     <div class="section-body">
@@ -13,20 +29,11 @@
               <div class="card gradient-bottom">
                 <div class="card-header">
                   <h4>Rekapitulasi</h4>
-                  <div class="card-header-action dropdown">
-                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Bulan</a>
-                    <ul class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                      <li class="dropdown-title">Pilih Bulan</li>
-                        @foreach ($bulan as $item)
-                        <li><a href="{{route('bulan',['pilih_bulan'=> $item])}}" class="dropdown-item">{{$item}}</a></li>
-                        @endforeach
-                    </ul>
-                  </div>
                 </div>
                 <div class="card-body">
                   <ul class="list-unstyled list-unstyled-border">
                     <li class="media">
-                      <img class="mr-3 rounded" width="55" src="../assets/img/products/product-3-50.png" alt="product">
+                      <img class="mr-3 rounded" width="55" src="/images/image blue.jpg" alt="product">
                       <div class="media-body">
                         <div class="media-title">Penjualan</div>
                         <div class="mt-1">
@@ -35,7 +42,7 @@
                       </div>
                     </li>
                     <li class="media">
-                      <img class="mr-3 rounded" width="55" src="../assets/img/products/product-4-50.png" alt="product">
+                      <img class="mr-3 rounded" width="55" src="/images/image green.jpg" alt="product">
                       <div class="media-body">
                         <div class="media-title">Cash In</div>
                         <div class="mt-1">
@@ -43,7 +50,7 @@
                         </div>
                     </li>
                     <li class="media">
-                      <img class="mr-3 rounded" width="55" src="../assets/img/products/product-1-50.png" alt="product">
+                      <img class="mr-3 rounded" width="55" src="/images/image yellow.jpg" alt="product">
                       <div class="media-body">
                         <div class="media-title">Piutang</div>
                         <div class="mt-1">

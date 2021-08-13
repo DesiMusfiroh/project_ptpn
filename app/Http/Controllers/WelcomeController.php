@@ -54,17 +54,17 @@ class WelcomeController extends Controller
     public function bulanan(Request $request) {
         $current_month = date('m/Y');
 
-        if ($request->has('pilih_bulan')) {
-            $rekap_bulan_sales = ViewRekapBulanSales::where('bulan','=',$request->pilih_bulan)->get();
-            $rekap_bulan_wilayah = ViewRekapBulanWilayah::where('bulan','=',$request->pilih_bulan)->get();   
-            $title = "Bulan $request->pilih_bulan ";
-            $rekap_bulan = ViewRekapPerBulan::where('bulan', '=', $request->pilih_bulan)->first();
+        if ($request->has('month') && $request->has('year')) {
+            $chosen_month = "$request->year/$request->month";
+            $rekap_bulan_sales = ViewRekapBulanSales::where('bulan','=',$chosen_month)->get();
+            $rekap_bulan_wilayah = ViewRekapBulanWilayah::where('bulan','=',$chosen_month)->get();   
+            $title = "Bulan $chosen_month ";
+            $rekap_bulan = ViewRekapPerBulan::where('bulan', '=', $chosen_month)->first();
         }else {
             $rekap_bulan_sales = ViewRekapBulanSales::where('bulan','=', $current_month)->get();           
             $rekap_bulan_wilayah = ViewRekapBulanWilayah::where('bulan','=', $current_month)->get();       
             $title = "Bulan  $current_month";
             $rekap_bulan = ViewRekapPerBulan::where('bulan', '=', $current_month)->first();
-
         }
 
         if($rekap_bulan == null) {
@@ -94,14 +94,45 @@ class WelcomeController extends Controller
             floatval($value->piutang)];
         }
 
+        $array_month  = collect([
+            "01" => "Januari", 
+            "02" => "Februari",
+            "03" => "Maret",
+            "04" => "April",
+            "05" => "Mei",
+            "06" => "Juni",
+            "07" => "Juli",
+            "08" => "Agustus",
+            "09" => "September",
+            "10" => "Oktober",
+            "11" => "November",
+            "12" => "Desember",
+        ]);
+
         return view('welcome.bulanan', compact('bulan', 'title',
             'display_penjualan', 'display_cash_in', 'display_piutang',
-            'rekap_bulan_sales','rekap_bulan_wilayah'))
+            'rekap_bulan_sales','rekap_bulan_wilayah', 'array_month'))
             ->with('tabel_wilayah',json_encode($array_wilayah))
             ->with('tabel_sales', json_encode($array_sales));
     }
 
-    public function harian() {
-        return view('welcome.harian');
+    public function harian(Request $request) {
+        $current_day = date('d/m/Y');
+       
+        if ($request->has('date')) {
+            $date = date('d/m/Y', strtotime($request->get('date')));
+            $unix_date = strtotime($date);
+            $chosen_day = $unix_date/86400 + 25569;
+            $faktur = Faktur::where('tanggal_faktur', $chosen_day)->get();
+            $title = $date;
+        } else {
+            $faktur = Faktur::where('tanggal_faktur', $current_day)->get();
+            $title = $current_day;
+        }
+        
+        $display_penjualan = $faktur->sum('penjualan');
+        $display_cash_in = $faktur->sum('cash_in');
+        $display_piutang = $faktur->sum('piutang');
+        return view('welcome.harian', compact('faktur','display_penjualan','display_cash_in','display_piutang','title'));
     }
 }

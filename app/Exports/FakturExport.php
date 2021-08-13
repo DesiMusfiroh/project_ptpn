@@ -22,14 +22,15 @@ class FakturExport implements FromCollection, WithHeadings
             'penjualan',
             'cash_in',
             'piutang',
+            'keyword'
         ];
     }
 
     public function collection()
     {
-        $faktur = Faktur::join('sales', 'sales.id', '=', 'faktur.sales_id')
-                ->join('wilayah', 'wilayah.id', '=', 'faktur.wilayah_id')
-                ->select('no_faktur','tanggal_faktur','sales.kode','wilayah.kode','sales.nama','wilayah.nama','nama_outlet','penjualan','cash_in','piutang')->get();
+        $faktur = Faktur::join('wilayah', 'wilayah.id', '=', 'faktur.wilayah_id')
+                ->join('sales', 'sales.id', '=', 'faktur.sales_id')
+                ->select('no_faktur','tanggal_faktur','sales.kode','wilayah.kode','sales.nama','wilayah.nama','nama_outlet','penjualan','cash_in','piutang','keyword')->get();
         return $faktur;
     }
 }

@@ -8,40 +8,48 @@
 
     <div class="section-body">
         <div class="row">
-            <div class="col-12 col-md-9 col-lg-9">
+            <div class="col-12 col-md-6 col-lg-6">
                 <div class="card card-primary">
                     <div class="card-header">
                         <h4>Pencarian Data Faktur</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <form action="{{route('faktur')}}" method="GET">
                                     <div class="form-group">
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" name="cari" placeholder="Masukkan kata kunci pencarian .." aria-label="" value="{{ old('cari') }}" >
                                         <div class="input-group-append">
-                                        <button class="btn btn-success" type="submit">Cari</button>
+                                        <button class="btn btn-success" type="submit"> <i class= "fa fa-search" aria-hidden= "true" ></i></button>
                                         </div>
                                     </div>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="/admin/faktur"><button class="btn btn-primary" type="button">Refresh</button></a> 
                             </div>
                         </div> 
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-3 col-12">
+            <div class="col-md-2 col-12">
                 <div class="card">
                     <div class="card-header justify-content-center">
                         <h4 class="text-center">Jumlah Data Faktur</h4>
                     </div>
                     <div class="card-body bg-secondary">
                         <h2 class="text-center">{{ $count }}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-12">
+                <div class="card">
+                    <div class="card-header justify-content-center">
+                        <h4 class="text-center">Hapus Multiple Faktur</h4>
+                    </div>
+                    <div class="card-body text-center">
+                       <button class="btn btn-danger btn-action"  data-toggle="modal" data-target=".delete_by_keyword_modal">Hapus Faktur Berdasarkan Keyword</button>
                     </div>
                 </div>
             </div>
@@ -60,7 +68,7 @@
                                     <a href="{{route('faktur',['cari_sales'=> $item->id])}}"  class="dropdown-item has-icon">{{$item->nama}} </a>
                                     @endforeach
                                     <div class="dropdown-divider"></div>
-                                    <a href="#" class="dropdown-item">View All</a>
+                                    <a href="{{route('faktur')}}" class="dropdown-item">Lihat semua</a>
                                 </div>
                             </div>
                             <div class="dropdown">
@@ -70,7 +78,7 @@
                                     <a href="{{route('faktur',['cari_wilayah'=> $item->id])}}"  class="dropdown-item has-icon">{{$item->nama}} </a>
                                     @endforeach
                                     <div class="dropdown-divider"></div>
-                                    <a href="#" class="dropdown-item">View All</a>
+                                    <a href="{{route('faktur')}}" class="dropdown-item">Lihat semua</a>
                                 </div>
                             </div>
                         </div>
@@ -90,28 +98,35 @@
                                 <th scope="col" class="text-center" width="120px">Penjualan</th>
                                 <th scope="col" class="text-center" width="120px">Cash in</th>
                                 <th scope="col" class="text-center" width="120px">Piutang</th>
-                                <th scope="col" class="text-center">Aksi</th>
+                                <th scope="col" class="text-center" width="180px">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="m-0 p-0">
                                 <?php $i=0; ?>                                                 
                                 @foreach ($faktur as $item) 
                                 <tr>
                                     <td scope="row" class="text-center"><?php  $i++;  echo $i; ?></td>
                                     <td class="text-center">{{ $item->no_faktur }}</td>
-                                    <td class="text-center">{{ $item->tanggal_faktur }}</td>
-                                    <td class="text-center">{{ $item->sales->nama }}</td> 
+                                    <td class="text-center">
+                                        <?php 
+                                            $excel_timestamp = $item->tanggal_faktur;
+                                            $unix_date = ($excel_timestamp - 25569) * 86400;
+                                            $date = date("d/m/Y", $unix_date);
+                                        ?>
+                                    {{ $date }}
+                                    </td>
+                                    <td class="text-center">{{ $item->sales->kode }}</td> 
                                     <td class="text-center">{{ $item->wilayah->nama }}</td> 
                                     <td class="text-center">{{ $item->nama_outlet }}</td>
-                                    <td class="text-center">Rp. {{ number_format($item->penjualan) }}</td>
-                                    <td class="text-center">Rp. {{ number_format($item->cash_in) }}</td>
-                                    <td class="text-center">Rp. {{ number_format($item->piutang) }}</td> 
+                                    <td class="text-center">{{ number_format($item->penjualan) }}</td>
+                                    <td class="text-center">{{ number_format($item->cash_in) }}</td>
+                                    <td class="text-center">{{ number_format($item->piutang) }}</td> 
                                     <td class="text-center">
                                         <button type="button" class="btn btn-warning btn-sm btn-action mr-1 mb-1" data-toggle="modal" data-target=".update_modal"
                                             id="update"                                   
                                             data-id="{{ $item->id }}"    
                                             data-no_faktur_update="{{ $item->no_faktur }}"
-                                            data-tanggal_faktur_update="{{ $item->tanggal_faktur }}"     
+                                            data-tanggal_faktur_update="{{ $date }}"     
                                             data-sales_update="{{ $item->sales_id }}"
                                             data-nama_sales_update="{{ $item->sales->nama }}"
                                             data-wilayah_update="{{ $item->wilayah_id }}"
@@ -170,13 +185,13 @@
                         <div class="form-group row">
                             <label for="no_faktur" class="col-sm-4 col-form-label">Nomor Faktur</label>
                             <div class="col-sm-8">
-                            <input type="text" class="form-control"  name="no_faktur" id="no_faktur_update" value="" >
+                            <input type="text" class="form-control"  name="no_faktur" id="no_faktur_update" value="">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="tanggal_faktur" class="col-sm-4 col-form-label">Tanggal Faktur</label>
                             <div class="col-sm-8">
-                            <input type="text" class="form-control"  name="tanggal_faktur" id="tanggal_faktur_update" value="" >
+                            <input type="text" class="form-control"  name="tanggal_faktur" id="tanggal_faktur_update" value="">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -188,7 +203,6 @@
                                     <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                     @endforeach
                                 </select>
-                            <!-- <input type="text" class="form-control" name="sales" id="sales_update" value="" > -->
                             </div>
                         </div>
                         <div class="form-group row">
@@ -200,7 +214,6 @@
                                     <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                     @endforeach
                                 </select>
-                            <!-- <input type="text" class="form-control" name="wilayah" id="wilayah_update" value="" > -->
                             </div>
                         </div>
                         <div class="form-group row">
@@ -265,6 +278,38 @@
     </div>
 <!-- Penutup Delete Modal -->
 
+<!-- Delete Multiple Modal -->
+<div class="modal fade delete_by_keyword_modal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title " id="exampleModalLabel">Hapus Faktur Berdasarkan Keyword</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form action="{{route('faktur.delete.keywords')}}" method="post">
+            @csrf
+            <div class="modal-body">
+                <p>Silahkan pilih keyword data faktur yang akan dihapus ! </p> 
+                @foreach ($keyword as $item)
+                <div class="form-check">
+                    <input class="form-check-input"  type="checkbox" name="delete_keywords[]" value="{{$item}}">
+                    <label class="form-check-label" for="{{$item}}">
+                        {{$item}}
+                    </label>
+                </div>
+                @endforeach
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Hapus Faktur</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+<!-- Penutup Delete Multiple Modal -->
 
 <script>
 $(document).ready(function(){

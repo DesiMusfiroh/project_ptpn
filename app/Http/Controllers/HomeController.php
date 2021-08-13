@@ -28,7 +28,7 @@ class HomeController extends Controller
         $rekap_per_sales = ViewRekapPerSales::all();
         $array_sales[] = ['Sales','Penjualan','Cash In', 'Piutang'];
         foreach($rekap_per_sales as $key => $value) {
-            $array_sales[++$key] = [$value->sales->nama, 
+            $array_sales[++$key] = [$value->sales->kode, 
             floatval($value->penjualan), 
             floatval($value->cash_in),
             floatval($value->piutang)];
@@ -43,7 +43,7 @@ class HomeController extends Controller
             floatval($value->piutang)];
         }
 
-        $rekap_per_bulan = ViewRekapPerBulan::all();
+        $rekap_per_bulan = ViewRekapPerBulan::orderBy('bulan', 'desc')->get();
         $array_bulan[] = ['Bulan','Penjualan','Cash In', 'Piutang'];
         foreach($rekap_per_bulan as $key => $value) {
             $array_bulan[++$key] = [$value->bulan, 
@@ -51,8 +51,6 @@ class HomeController extends Controller
             floatval($value->cash_in),
             floatval($value->piutang)];
         }
-        // $testdate = Carbon::parse(42322)->format('d/m/Y');
-        // $testdate = date("Y-m-d ", 1388516401);
 
         $excel_timestamp = 44180; 
         $php_timestamp = mktime(0,0,0,0,$excel_timestamp,1900); 
@@ -61,24 +59,30 @@ class HomeController extends Controller
         return view('admin.dashboard', compact('total_penjualan','total_cash_in','total_piutang','rekap_per_sales','rekap_per_wilayah','rekap_per_bulan'))
         ->with('tabel_sales', json_encode($array_sales))
         ->with('tabel_wilayah',json_encode($array_wilayah));
-        // $faktur_per_sales  = $faktur->groupBy('sales_id')->map(function ($row) {
-        //     return $row->sum('penjualan');
-        // });
-        // $faktur_per_wilayah  = $faktur->groupBy('wilayah_id')->map(function ($row) {
-        //     return $row->sum('penjualan');
-        // });
-        // dd($faktur_per_wilayah);
-
     }
 
     public function bulan(Request $request) {
         $current_month = date('m/Y');
-               
-        if ($request->has('pilih_bulan')) {
-            $rekap_bulan_sales = ViewRekapBulanSales::where('bulan','=',$request->pilih_bulan)->get();
-            $rekap_bulan_wilayah = ViewRekapBulanWilayah::where('bulan','=',$request->pilih_bulan)->get();   
-            $title = "Bulan $request->pilih_bulan ";
-            $rekap_bulan = ViewRekapPerBulan::where('bulan', '=', $request->pilih_bulan)->first();
+        $array_month  = collect([
+            "01" => "Januari", 
+            "02" => "Februari",
+            "03" => "Maret",
+            "04" => "April",
+            "05" => "Mei",
+            "06" => "Juni",
+            "07" => "Juli",
+            "08" => "Agustus",
+            "09" => "September",
+            "10" => "Oktober",
+            "11" => "November",
+            "12" => "Desember",
+        ]);       
+        if ($request->has('month') && $request->has('year')) {
+            $chosen_month = "$request->year/$request->month";
+            $rekap_bulan_sales = ViewRekapBulanSales::where('bulan','=',$chosen_month)->get();
+            $rekap_bulan_wilayah = ViewRekapBulanWilayah::where('bulan','=',$chosen_month)->get();   
+            $title = "Bulan $chosen_month";
+            $rekap_bulan = ViewRekapPerBulan::where('bulan', '=', $chosen_month)->first();
          
         }else {
             $rekap_bulan_sales = ViewRekapBulanSales::where('bulan','=', $current_month)->get();           
@@ -96,10 +100,10 @@ class HomeController extends Controller
             $display_cash_in = $rekap_bulan->cash_in;
             $display_piutang = $rekap_bulan->piutang;
         }
-
+       
         $bulan = ViewRekapBulanSales::groupBy('bulan')->pluck('bulan');
         return view('admin.bulan', compact('bulan', 'title',
             'display_penjualan', 'display_cash_in', 'display_piutang',
-            'rekap_bulan_sales','rekap_bulan_wilayah'));
+            'rekap_bulan_sales','rekap_bulan_wilayah', 'array_month'));
     }
 }

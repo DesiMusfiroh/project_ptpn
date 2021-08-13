@@ -63,7 +63,7 @@
                     <h4>Grafik Rekapitulasi Per Bulan</h4>
                 </div>
                 <div class="card-body mr-3 ml-3">
-                    <div id="chart_rekap_per_bulan" style="height: 200px;"></div>
+                    <div id="chart_rekap_per_bulan" style="height: 250px;"></div>
                 </div>
                 
             </div>    
@@ -85,7 +85,9 @@
     var options = {
         chart: {
             title: ' ',      
-        }
+        },
+        vAxis: {format: 'decimal'},
+        colors: ['blue', 'green', 'orange']
     };
     var chart = new google.charts.Line(document.getElementById('chart_rekap_per_bulan'));
     chart.draw(data, google.charts.Line.convertOptions(options));

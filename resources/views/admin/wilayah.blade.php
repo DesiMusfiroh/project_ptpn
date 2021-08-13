@@ -88,6 +88,12 @@
                                 <h4>Import Data Wilayah (.csv)</h4>
                             </div>
                             <div class="card-body">
+                                <p><b>Format Excel Data Wilayah</b></p>
+                                <ul>
+                                    <li>Kolom 1 : kode</li>
+                                    <li>Kolom 2 : nama</li>
+                                    <li>Kolom 3 : keterangan</li>
+                                </ul>
                                 <form action="{{route('wilayah.import')}}" method="POST" enctype="multipart/form-data">
                                     @csrf 
                                     <input type="file" name="file" class="mb-4"/>

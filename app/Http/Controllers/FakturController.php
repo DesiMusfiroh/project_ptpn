@@ -18,23 +18,22 @@ class FakturController extends Controller
         $wilayah = Wilayah::all();
 
         if ($request->has('cari_sales')) {
-            $faktur = Faktur::where('sales_id', $request->cari_sales)->paginate(500);
+            $faktur = Faktur::where('sales_id', $request->cari_sales)->paginate(10000);
             $count = $faktur->count();
         } elseif ($request->has('cari_wilayah')){
-            $faktur = Faktur::where('wilayah_id', $request->cari_wilayah)->paginate(500);
+            $faktur = Faktur::where('wilayah_id', $request->cari_wilayah)->paginate(10000);
             $count = $faktur->count();
         } elseif ($request->has('cari')) {
-            $faktur = Faktur::where('tanggal_faktur','LIKE','%'.$request->cari.'%')
-                    ->orWhere('no_faktur','LIKE','%'.$request->cari.'%')
+            $faktur = Faktur::Where('no_faktur','LIKE','%'.$request->cari.'%')
                     ->orWhere('nama_outlet','LIKE','%'.$request->cari.'%')
-                    ->orWhere('keyword','LIKE','%'.$request->cari.'%')->orderBy('tanggal_faktur', 'desc')->paginate(1000);
+                    ->orWhere('keyword','LIKE','%'.$request->cari.'%')->orderBy('tanggal_faktur', 'desc')->paginate(10000);
             $count = $faktur->count();
         } else {
-            $faktur = Faktur::paginate(50);
+            $faktur = Faktur::orderBy('tanggal_faktur', 'desc')->paginate(50);
             $count = Faktur::all()->count();
         }
-        
-        return view('admin.faktur',compact('faktur', 'sales', 'wilayah','count'));
+        $keyword =  $bulan = Faktur::groupBy('keyword')->pluck('keyword');
+        return view('admin.faktur',compact('faktur', 'sales', 'wilayah','count','keyword'));
     }
 
     public function importForm() {
@@ -47,8 +46,12 @@ class FakturController extends Controller
     }
 
     public function import(Request $request) {
-        Excel::import(new FakturImport, $request->file);
-        return redirect('/admin/faktur')->with('success','Data faktur berhasil di masukkan!');
+        try {
+            Excel::import(new FakturImport, $request->file);
+            return redirect('/admin/faktur')->with('success','Data faktur berhasil di masukkan!');
+        } catch(Exceptions $e) {
+            return redirect('/admin/faktur')->with('error','Data faktur gagal di masukkan!');
+        }
     }
 
     public function exportKeyword(Request $request) {
@@ -59,8 +62,7 @@ class FakturController extends Controller
         return Excel::download(new FakturExport, 'Data Faktur All.csv');
     }
 
-    public function update(Request $request)
-    {
+    public function update(Request $request) {
         $faktur      = Faktur::findorFail($request->id);
         $update_faktur = [
             'no_faktur' => $request->no_faktur,
@@ -81,5 +83,13 @@ class FakturController extends Controller
         $faktur = Faktur::findOrFail($request->id);
 		$faktur->delete();
 		return redirect()->back()->with('success','Data Faktur berhasil di hapus!');
+    }
+
+    public function deleteByKeywords(Request $request) {
+        $deleteKeywords = $request->input('delete_keywords');
+        foreach ($deleteKeywords as $keyword) {
+            $faktur = Faktur::where('keyword', $keyword)->delete();
+        }
+        return redirect()->back()->with('success','Data Faktur berhasil di hapus!');
     }
 }

@@ -56,25 +56,13 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card justify-content-center">
                 <div class="card-header"> 
                     <h4>Grafik Rekapitulasi Per Sales</h4>
                 </div>
                 <div class="card-body mr-3 ml-3">
-                    <div id="chart_rekap_per_sales" style="height: 200px;"></div>
-                </div>
-                
-            </div>    
-        </div>
-
-        <div class="col-md-6">
-            <div class="card justify-content-center">
-                <div class="card-header"> 
-                    <h4>Grafik Rekapitulasi Per Wilayah</h4>
-                </div>
-                <div class="card-body mr-3 ml-3">
-                    <div id="chart_rekap_per_wilayah" style="height: 200px;"></div>
+                    <div id="chart_rekap_per_sales" style="height: 250px;"></div>
                 </div>
                 
             </div>    
@@ -115,6 +103,18 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card justify-content-center">
+                <div class="card-header"> 
+                    <h4>Grafik Rekapitulasi Per Wilayah</h4>
+                </div>
+                <div class="card-body mr-3 ml-3">
+                    <div id="chart_rekap_per_wilayah" style="height: 200px;"></div>
+                </div>
+                
+            </div>    
         </div>
       </div>
   
@@ -200,7 +200,7 @@
 <script type="text/javascript">
 
       var analytics_sales = <?php echo $tabel_sales; ?>;
-      google.charts.load('current', {'packages':['line']});
+      google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
@@ -209,10 +209,12 @@
       var options = {
           chart: {
             title: ' ',      
-          }
+          },
+          vAxis: {format: 'decimal'},
+          colors: ['blue', 'green', 'orange']
         };
-      var chart = new google.charts.Line(document.getElementById('chart_rekap_per_sales'));
-      chart.draw(data, google.charts.Line.convertOptions(options));
+      var chart = new google.charts.Bar(document.getElementById('chart_rekap_per_sales'));
+      chart.draw(data, google.charts.Bar.convertOptions(options));
 
     }
 </script>
@@ -220,7 +222,7 @@
 <script type="text/javascript">
 
     var analytics_wilayah = <?php echo $tabel_wilayah; ?>;
-      google.charts.load('current', {'packages':['line']});
+      google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
@@ -229,10 +231,11 @@
       var options = {
           chart: {
             title: '',      
-          }
+          },
+          colors: ['blue', 'green', 'orange']
         };
-      var chart = new google.charts.Line(document.getElementById('chart_rekap_per_wilayah'));
-      chart.draw(data, google.charts.Line.convertOptions(options));
+      var chart = new google.charts.Bar(document.getElementById('chart_rekap_per_wilayah'));
+      chart.draw(data, google.charts.Bar.convertOptions(options));
     }
 </script>
 @endsection
