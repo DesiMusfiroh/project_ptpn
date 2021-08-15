@@ -120,11 +120,15 @@ class WelcomeController extends Controller
         $current_day = date('d/m/Y');
        
         if ($request->has('date')) {
-            $date = date('d/m/Y', strtotime($request->get('date')));
+            $day = substr($request->date, 0, 2);
+            $month = substr($request->date, 3, 2);
+            $year = substr($request->date, 6, 4);
+            
+            $date = date('Y-m-d', strtotime("$year-$month-$day"));
             $unix_date = strtotime($date);
             $chosen_day = $unix_date/86400 + 25569;
             $faktur = Faktur::where('tanggal_faktur', $chosen_day)->get();
-            $title = $date;
+            $title = $request->date;
         } else {
             $faktur = Faktur::where('tanggal_faktur', $current_day)->get();
             $title = $current_day;

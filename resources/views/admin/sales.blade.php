@@ -1,4 +1,5 @@
 <?php use App\Sales; ?>
+<?php use App\Models\Faktur; ?>
 @extends('layouts.master')
 
 @section('content')
@@ -45,14 +46,18 @@
                                                 data-wilayah_update="{{ $item->wilayah }}">  
                                                 <i class="fa fa-edit"></i>             
                                             </button>
-                                        
-                                            <button class="btn btn-danger btn-sm btn-action mr-1 mb-1" data-toggle="modal" data-target=".delete_modal"
-                                                id="delete"
-                                                data-id_delete="{{ $item->id }}"
-                                                data-kode_delete="{{ $item->kode }}"
-                                                data-nama_delete="{{ $item->nama }}">
-                                                <i class="fa fa-trash"></i>                                       
-                                            </button>
+                                            <?php
+                                                $faktur = Faktur::where('sales_id',$item->id)->first();
+                                                if ($faktur == null) { ?>
+                                                <button class="btn btn-danger btn-sm btn-action mr-1 mb-1" data-toggle="modal" data-target=".delete_modal"
+                                                    id="delete"
+                                                    data-id_delete="{{ $item->id }}"
+                                                    data-kode_delete="{{ $item->kode }}"
+                                                    data-nama_delete="{{ $item->nama }}">
+                                                    <i class="fa fa-trash"></i>                                       
+                                                </button>
+                                                <?php }
+                                            ?>
                                         </td>                          
                                     </tr>
                                     @endforeach 

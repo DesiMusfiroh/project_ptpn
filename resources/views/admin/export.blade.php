@@ -19,7 +19,7 @@
                         <div class="form-group row mb-0">
                             <label for="wilayah" class="col-sm-4 col-form-label">Pilih Keyword </label>
                             <div class="col-sm-8">
-                                <select name="wilayah" class="form-control"  id="wilayah">
+                                <select name="keyword" class="form-control"  id="keyword" required>
                                     <option value="">Pilih Bulan - Wilayah</option>
                                     @foreach ($keyword as $item)
                                     <option value="{{ $item->keyword }}">{{ $item->keyword }}</option>

@@ -31,11 +31,7 @@ class FakturImport implements ToModel, WithHeadingRow
         $wilayah = Wilayah::where('kode', $row['kode_wilayah'])->first();
 
         $check_faktur = Faktur::where('no_faktur', $row['no_faktur'])->where('keyword', $row['keyword'])->first();
-        
-        // $excel_timestamp = $row['tanggal_faktur'];
-        // $unix_date = ($excel_timestamp - 25569) * 86400;
-        // $date = date("d/m/Y", $unix_date);
-
+      
         if (!$check_faktur) {
             $posts = Faktur::create([
                 'no_faktur'         => $row['no_faktur'],

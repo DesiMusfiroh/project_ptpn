@@ -32,9 +32,10 @@ class FakturExportPerKeyword implements FromCollection, WithHeadings
 
     public function collection()
     {
-        $faktur = Faktur::join('sales', 'sales.id', '=', 'faktur.sales_id')
+        $faktur = Faktur::rightJoin('sales', 'faktur.sales_id', '=', 'sales.id')
                 ->join('wilayah', 'wilayah.id', '=', 'faktur.wilayah_id')
-                ->select('no_faktur','tanggal_faktur','sales.kode','wilayah.kode','sales.nama','wilayah.nama','nama_outlet','penjualan','cash_in','piutang')->get();
+                ->select('no_faktur','tanggal_faktur','sales.kode','wilayah.kode','sales.nama','wilayah.nama','nama_outlet','penjualan','cash_in','piutang','keyword')
+                ->where('keyword', $this->request->keyword)->get();
         return $faktur;
     }
 }

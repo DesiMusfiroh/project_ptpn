@@ -46,10 +46,11 @@
             <div class="col-md-4 col-12">
                 <div class="card">
                     <div class="card-header justify-content-center">
-                        <h4 class="text-center">Hapus Multiple Faktur</h4>
+                        <h4 class="text-center">Pengaturan</h4>
                     </div>
                     <div class="card-body text-center">
-                       <button class="btn btn-danger btn-action"  data-toggle="modal" data-target=".delete_by_keyword_modal">Hapus Faktur Berdasarkan Keyword</button>
+                        <button class="btn btn-success btn-action m-1"  data-toggle="modal" data-target=".add_modal">Tambah Faktur</button>
+                       <button class="btn btn-danger btn-action  m-1"  data-toggle="modal" data-target=".delete_by_keyword_modal">Hapus Faktur</button>
                     </div>
                 </div>
             </div>
@@ -124,7 +125,7 @@
                                     <td class="text-center">
                                         <button type="button" class="btn btn-warning btn-sm btn-action mr-1 mb-1" data-toggle="modal" data-target=".update_modal"
                                             id="update"                                   
-                                            data-id="{{ $item->id }}"    
+                                            data-id_update="{{ $item->id }}"    
                                             data-no_faktur_update="{{ $item->no_faktur }}"
                                             data-tanggal_faktur_update="{{ $date }}"     
                                             data-sales_update="{{ $item->sales_id }}"
@@ -165,6 +166,97 @@
     </div>
 </section>
 
+<!-- Add  modal -->
+<div class="modal fade add_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Tambah Data Faktur </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{route('faktur.store')}}" method="post" enctype="multipart/form-data" >
+            <div class="modal-body">
+                @csrf
+                    <div class="container">
+                        <div class="form-group row">
+                            <label for="no_faktur" class="col-sm-4 col-form-label">Nomor Faktur</label>
+                            <div class="col-sm-8">
+                            <input type="text" class="form-control"  name="no_faktur" value="" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="date" class="col-sm-4 col-form-label">Tanggal Faktur</label>
+                            <div class="col-sm-8">
+                            <input type="text" class="form-control"  name="date" id="date" value="" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="sales" class="col-sm-4 col-form-label">Sales</label>
+                            <div class="col-sm-8">
+                                <select name="sales_id" class="form-control" id="sales_id" required>
+                                    <option id="sales" value="" selected> Pilih Sales </option>
+                                    @foreach ($sales as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="wilayah" class="col-sm-4 col-form-label">Wilayah</label>
+                            <div class="col-sm-8">
+                                <select name="wilayah_id" class="form-control"  id="wilayah_id" required>
+                                    <option id="wilayah" value="" selected> Pilih Wilayah </option>
+                                    @foreach ($wilayah as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nama_outlet" class="col-sm-4 col-form-label">Nama Outlet</label>
+                            <div class="col-sm-8">
+                            <input type="text" class="form-control" name="nama_outlet" id="nama_outlet" value="" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="penjualan" class="col-sm-4 col-form-label">Penjualan</label>
+                            <div class="col-sm-8">
+                            <input type="number" class="form-control" name="penjualan" id="penjualan" value="" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cash_in" class="col-sm-4 col-form-label">Cash In</label>
+                            <div class="col-sm-8">
+                            <input type="number" class="form-control" name="cash_in" id="cash_in" value="" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="piutang" class="col-sm-4 col-form-label">Piutang</label>
+                            <div class="col-sm-8">
+                            <input type="number" class="form-control" name="piutang" id="piutang" value="" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="keyword" class="col-sm-4 col-form-label">Keyword</label>
+                            <div class="col-sm-8">
+                            <input type="text" class="form-control" name="keyword" id="keyword" value="" required>
+                            </div>
+                        </div>
+                    </div>                               
+            </div>
+            <div class="modal-footer">   
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-warning">Simpan</button>                               
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Penutup Add  modal -->
+
+
 <!-- Update  modal -->
 <div class="modal fade update_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
@@ -181,7 +273,7 @@
                 @method('PATCH')
                     <div class="container">
                      
-                        <input type="hidden" name="id" id="id" value="">  
+                        <input type="hidden" name="id" id="id_update" value="">  
                         <div class="form-group row">
                             <label for="no_faktur" class="col-sm-4 col-form-label">Nomor Faktur</label>
                             <div class="col-sm-8">
@@ -314,7 +406,7 @@
 <script>
 $(document).ready(function(){
     $(document).on('click','#update', function(){
-        var id                    = $(this).data('id');
+        var id_update             = $(this).data('id_update');
         var no_faktur_update      = $(this).data('no_faktur_update');  
         var tanggal_faktur_update = $(this).data('tanggal_faktur_update');  
         var sales_update          = $(this).data('sales_update');
@@ -326,7 +418,7 @@ $(document).ready(function(){
         var cash_in_update        = $(this).data('cash_in_update');
         var piutang_update        = $(this).data('piutang_update');
 
-        $('#id').val(id);                
+        $('#id_update').val(id_update);                
         $('#no_faktur_update').val(no_faktur_update);  
         $('#tanggal_faktur_update').val(tanggal_faktur_update);  
         $('#sales_update').val(sales_update);  
@@ -348,4 +440,38 @@ $(document).ready(function(){
 });
 </script>
 
+<!-- Include jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+<script>
+    $(document).ready(function(){
+      var date_input=$('input[name="tanggal_faktur"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'dd/mm/yyyy',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+</script>
+
+<script>
+    $(document).ready(function(){
+      var date_input_add=$('input[name="date"]'); //our date input has the name "date"
+      var container_add=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options_add={
+        format: 'dd/mm/yyyy',
+        container: container_add,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input_add.datepicker(options_add);
+    })
+</script>
 @endsection

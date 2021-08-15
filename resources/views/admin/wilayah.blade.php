@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
+<?php use App\Models\Faktur; ?>
 <section class="section">
     <div class="section-header">
         <h1>Data Wilayah</h1>
@@ -44,14 +45,19 @@
                                                 data-keterangan_update="{{ $item->keterangan }}">  
                                                 <i class="fa fa-edit"></i>             
                                             </button>
-                                        
-                                            <button class="btn btn-danger btn-sm btn-action mr-1 mb-1" data-toggle="modal" data-target=".delete_modal"
-                                                id="delete"
-                                                data-id_delete="{{ $item->id }}"
-                                                data-kode_delete="{{ $item->kode }}"
-                                                data-nama_delete="{{ $item->nama }}">
-                                                <i class="fa fa-trash"></i>                                       
-                                            </button>
+                                            <?php
+                                                $faktur = Faktur::where('wilayah_id',$item->id)->first();
+                                                if ($faktur == null) { ?>
+                                                    <button class="btn btn-danger btn-sm btn-action mr-1 mb-1" data-toggle="modal" data-target=".delete_modal"
+                                                        id="delete"
+                                                        data-id_delete="{{ $item->id }}"
+                                                        data-kode_delete="{{ $item->kode }}"
+                                                        data-nama_delete="{{ $item->nama }}">
+                                                        <i class="fa fa-trash"></i>                                       
+                                                    </button>
+                                                <?php }
+                                            ?>
+                                           
                                         </td>                          
                                     </tr>
                                     @endforeach 
@@ -109,9 +115,6 @@
 </section>
 
     
-
-
-
 <!-- Create Modal -->
 <div class="modal fade create_modal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" >

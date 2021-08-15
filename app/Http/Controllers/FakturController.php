@@ -8,6 +8,7 @@ use App\Models\Sales;
 use App\Models\Wilayah;
 use App\Imports\FakturImport;
 use App\Exports\FakturExport;
+use App\Exports\FakturExportPerKeyword;
 use Excel;
 
 class FakturController extends Controller
@@ -36,6 +37,43 @@ class FakturController extends Controller
         return view('admin.faktur',compact('faktur', 'sales', 'wilayah','count','keyword'));
     }
 
+    public function store(Request $request)
+    {
+        $this->validate($request,[
+            'no_faktur' => 'required',
+            'date' => 'required',
+            'sales_id' => 'required',
+            'wilayah_id' => 'required',
+            'nama_outlet' => 'required',
+            'penjualan' => 'required',
+            'cash_in' => 'required',
+            'piutang' => 'required',
+            'keyword' => 'required',
+        ]);
+       
+        $day = substr($request->date, 0, 2);
+        $month = substr($request->date, 3, 2);
+        $year = substr($request->date, 6, 4);
+        
+        $date = date('Y-m-d', strtotime("$year-$month-$day"));
+        $unix_date = strtotime($date);
+        $tanggal_faktur = $unix_date/86400 + 25569;
+
+        Faktur::create([
+            'no_faktur' => $request->no_faktur,
+            'tanggal_faktur' => $tanggal_faktur,
+            'sales_id' => $request->sales_id,
+            'wilayah_id' => $request->wilayah_id,
+            'nama_outlet' => $request->nama_outlet,
+            'penjualan' => $request->penjualan,
+            'cash_in' => $request->cash_in,
+            'piutang' => $request->piutang,
+            'keyword' => $request->keyword,
+        ]);
+        
+        return redirect()->back()->with('success','Data Faktur berhasil di tambahkan!');
+    }
+
     public function importForm() {
         return view('admin.import');
     }
@@ -55,7 +93,11 @@ class FakturController extends Controller
     }
 
     public function exportKeyword(Request $request) {
-        return Excel::download(new FakturExport, "Faktur $request->keyword.csv");
+        $month = substr($request->keyword, 5, 2);
+        $year = substr($request->keyword, 0, 4);
+        $wilayah = substr($request->keyword, 8);
+        $new_keyword = "$month-$year $wilayah";
+        return Excel::download(new FakturExportPerKeyword($request), "Faktur $new_keyword.csv");
     }
 
     public function exportAll() {
@@ -64,9 +106,18 @@ class FakturController extends Controller
 
     public function update(Request $request) {
         $faktur      = Faktur::findorFail($request->id);
+
+        $day = substr($request->tanggal_faktur, 0, 2);
+        $month = substr($request->tanggal_faktur, 3, 2);
+        $year = substr($request->tanggal_faktur, 6, 4);
+        
+        $date = date('Y-m-d', strtotime("$year-$month-$day"));
+        $unix_date = strtotime($date);
+        $tanggal_faktur = $unix_date/86400 + 25569;
+
         $update_faktur = [
             'no_faktur' => $request->no_faktur,
-            'tanggal_faktur' => $request->tanggal_faktur,
+            'tanggal_faktur' => $tanggal_faktur,
             'sales_id' => $request->sales_id,
             'wilayah_id' => $request->wilayah_id,
             'nama_outlet' => $request->nama_outlet,
