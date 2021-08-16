@@ -18,7 +18,7 @@
                     <div class="card-body">
                         <div class="form-group mb-0">
                             <label for="file">Pilih Data Excel (.csv)</label>
-                            <input type="file" name="file"/>
+                            <input type="file" name="file" required/>
                         </div>
                     </div>
                     <div class="card-footer text-right">

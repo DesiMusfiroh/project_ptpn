@@ -7,9 +7,17 @@ use App\Models\Sales;
 use App\Models\Wilayah;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsErrors;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\WithStartRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class FakturImport implements ToModel, WithHeadingRow
+class FakturImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure 
 {
+    use Importable,SkipsErrors, SkipsFailures;
     public function model(array $row)
     {
         if (Sales::where('kode', $row['kode_sales'])->doesntExist()) {
@@ -57,5 +65,25 @@ class FakturImport implements ToModel, WithHeadingRow
             ];
             $posts = Faktur::where('no_faktur', strval($row['no_faktur']))->where('keyword', $row['keyword'])->update($update_faktur);
         }
+            
     }
+
+    public function getRowCount(): int
+    {
+        return $this->rows;
+    }    
+
+    public function rules(): array 
+    {
+        return [
+            '*.no_faktur' => ['required'],
+            '*.tanggal_faktur' => ['required', 'integer'],
+            '*.kode_sales' => ['required'],
+            '*.kode_wilayah' => ['required'],
+            '*.keyword' => ['required'],
+            '*.penjualan' => ['integer'],
+            '*.cash_in' => ['integer'],
+            '*.piutang' => ['integer'],
+        ];
+    }     
 }

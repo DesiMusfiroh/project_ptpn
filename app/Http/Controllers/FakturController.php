@@ -84,11 +84,18 @@ class FakturController extends Controller
     }
 
     public function import(Request $request) {
-        try {
-            Excel::import(new FakturImport, $request->file);
+        if (empty($request->file('file'))) {
+            return back()->with('error','Pilih file excel terlebih dahulu');
+        }
+        else{   
+            $import =  new FakturImport;
+            $import->import($request->file('file')); 
+
+            if($import->failures()->isNotEmpty()){
+                $failures = $import->failures();     
+                return redirect('/admin/faktur_import')->with('warning',"Data faktur gagal di masukkan!. Pastikan data sesuai dengan formatnya. ");
+            }
             return redirect('/admin/faktur')->with('success','Data faktur berhasil di masukkan!');
-        } catch(Exceptions $e) {
-            return redirect('/admin/faktur')->with('error','Data faktur gagal di masukkan!');
         }
     }
 
