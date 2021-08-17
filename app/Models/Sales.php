@@ -14,14 +14,15 @@ class Sales extends Model
     protected $table ='sales';
     protected $fillable = ['kode','nama','wilayah'];
  
+    public function faktur() {
+    	return $this->hasOne(Faktur::class,'sales_id');
+    }
+   
+    
     public function wilayah() {
         return $this->belongsTo(Wilayah::class);
     }
 
-    public function faktur() {
-    	return $this->hasOne(Faktur::class,'sales_id');
-    }
-    
     public function rekap_per_sales() {
     	return $this->hasOne(ViewRekapPerSales::class,'sales_id');
     }

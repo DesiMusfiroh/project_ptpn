@@ -14,12 +14,13 @@ class Wilayah extends Model
     protected $table ='wilayah';
     protected $fillable = ['kode','nama','keterangan'];
 
-    public function sales() {
-    	return $this->hasOne(Sales::class,'wilayah_id');
-    }
-
     public function faktur() {
     	return $this->hasOne(Faktur::class,'wilayah_id');
+    }
+
+    
+    public function sales() {
+    	return $this->hasOne(Sales::class,'wilayah_id');
     }
 
     public function rekap_per_wilayah() {

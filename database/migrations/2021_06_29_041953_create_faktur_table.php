@@ -17,7 +17,7 @@ class CreateFakturTable extends Migration
             $table->string('nama_outlet');
             $table->decimal('penjualan');
             $table->decimal('cash_in')->nullable();
-            $table->decimal('piutang');
+            $table->decimal('piutang')->nullable();
             $table->string('keyword')->nullable();
             $table->timestamps();
         });

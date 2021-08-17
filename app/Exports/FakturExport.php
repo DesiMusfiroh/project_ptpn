@@ -30,7 +30,7 @@ class FakturExport implements FromCollection, WithHeadings
     {
         $faktur = Faktur::join('wilayah', 'wilayah.id', '=', 'faktur.wilayah_id')
                 ->join('sales', 'sales.id', '=', 'faktur.sales_id')
-                ->select('no_faktur','tanggal_faktur','sales.kode','wilayah.kode','sales.nama','wilayah.nama','nama_outlet','penjualan','cash_in','piutang','keyword')->get();
+                ->select('no_faktur','tanggal_faktur','sales.kode as kode_sales','wilayah.kode as kode_wilayah','sales.nama as nama_sales','wilayah.nama as wilayah','nama_outlet','penjualan','cash_in','piutang','keyword')->get();
         return $faktur;
     }
 }
